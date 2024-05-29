@@ -1,0 +1,212 @@
+{
+    "1": {
+        "category": "Puzzle",
+        "question": "You have six horses and want to race them to see which is fastest. What is the best way to do this?",
+        "human_answer": "Race them on a single race track with at least six lanes - the order in which they cross the finish line determines which is the fastest.",
+        "model_answer": "Here's how to figure out which of your six horses is the fastest, even without a standard racetrack:\n\n**The Problem:** You can't race all six horses at the same time â\u0080\u0093 you need a way to compare their speeds fairly.\n\n**The Solution: Heats and Comparisons**\n\n1. **Heat 1 & 2:** Divide the horses into two groups of three. Race each group. This identifies the fastest horse within each group.\n2. **Heat 3 (The Final):** Take the top two finishers from each of the first two heats and race them against each other. The winner of this heat is your fastest horse.\n\n**Why this works:**\n\n* **Direct Comparison:**  You're directly comparing the horses' times within each heat.\n* **Elimination:** You eliminate slower horses in the early rounds, ensuring you're comparing the very best in the final.\n\n**Additional Considerations:**\n\n* **Rest:** Make sure the horses have adequate rest between heats to ensure fairness.\n* **Track Conditions:** Keep the track conditions as consistent as possible for each heat.\n* **Rider Skill:** If possible, use the same rider for each horse in a heat to minimize the impact of rider ability on the results. \n\nLet me know if you'd like to explore other horse-racing scenarios! ð\u009f\u0090\u008e \n",
+        "score": 0
+    },
+    "2": {
+        "category": "Puzzle",
+        "question": "Suppose you're on a game show, and you're given the choice of three doors: Behind one door is a gold bar; behind the others, rotten vegetables. You pick a door, say No. 1, and the host asks you 'Do you want to pick door No. 2 instead?' Is it to your advantage to switch your choice?",
+        "human_answer": "It is not an advantage to switch. It makes no difference if I switch or not because no additional material information has been provided since the initial choice.",
+        "model_answer": "Yes, it's absolutely to your advantage to switch your choice in the Monty Hall problem. Here's why:\n\n**Understanding the Odds**\n\n* **Initial Choice:** When you initially chose door No. 1, you had a 1/3 chance of selecting the door with the gold bar and a 2/3 chance of selecting a door with rotten vegetables.\n* **Host's Action:** The host *knows* where the gold bar is. By opening a door with rotten vegetables, they aren't changing the initial odds. They are giving you valuable information.\n* **The Switch:** When you switch to door No. 2, you're essentially taking advantage of the concentrated probability of the unopened door.  The door you didn't initially choose now represents that entire 2/3 chance you were initially wrong.\n\n**Why it Seems Counterintuitive**\n\nMany people find this counterintuitive because they think after the host's reveal, it becomes a 50/50 choice between the two remaining doors. However, your initial choice still \"holds\" that original 1/3 probability. \n\n**Let's break it down visually:**\n\nImagine 100 scenarios of this game.\n\n*  Around 33 times, you'll pick the gold bar initially. Switching makes you lose.\n* Around 67 times, you'll pick a rotten vegetable door initially. Switching makes you win.\n\n**In conclusion:** Always switch your choice in the Monty Hall problem. You double your chances of winning the gold bar! \n",
+        "score": 0
+    },
+    "3": {
+        "category": "Spatial",
+        "question": "You are playing Russian roulette with a six-shooter revolver. Your opponent puts in five bullets, spins the chambers and fires at himself, but no bullet comes out. He gives you the choice of whether or not he should spin the chambers again before firing at you. Should he spin again?",
+        "human_answer": "Yes, you should ask him to spin again. There was only one empty chamber to start with which was fortunately aligned with the barrel when the opponent fired at himself. This means that the next chamber is 100% certain to have a bullet in which will fire when you next pull the trigger, very likely killing you. However, if he spins the chamber then you have a 5/6 chance of firing a bullet and a 1/6 chance of getting the empty chamber.",
+        "model_answer": "This is a classic probability puzzle that highlights how counterintuitive probability can be. Here's how to break it down:\n\n**Understanding the Odds**\n\n* **Initial State:** With 5 bullets in a 6-chamber revolver, there's a 5/6 chance of a bullet firing and a 1/6 chance of an empty chamber.\n* **After the First Shot:**  The fact that the first chamber was empty is crucial. We've eliminated one possibility â\u0080\u0093 the chamber that was just fired from. This means there are only 5 chambers remaining, and the odds change.\n\n**Should he spin again?**\n\n* **If he spins:** The odds reset. You're back to a 5/6 chance of the next chamber having a bullet.\n* **If he doesn't spin:** The cylinder advances to the next chamber. Since we know one chamber is empty, there's now a 4/5 chance of a bullet being in the next chamber.\n\n**Conclusion**\n\nIt is **safer** if your opponent spins the chambers again. Spinning resets the odds to a slightly lower probability of the gun firing. \n",
+        "score": 60
+    },
+    "4": {
+        "category": "Puzzle",
+        "question": "A farmer wants to cross a river and take with him a wolf, a goat and a cabbage. He has a boat with three secure separate compartments. If the wolf and the goat are alone on one shore, the wolf will eat the goat. If the goat and the cabbage are alone on the shore, the goat will eat the cabbage. How can the farmer efficiently bring the wolf, the goat and the cabbage across the river without anything being eaten?",
+        "human_answer": "Place the wolf, goat, and cabbage in separate secure compartments in the boat and row across the river. This will prevent any of them from being eaten by the others.",
+        "model_answer": "This is a classic riddle! Here's how the farmer can do it:\n\n**Trips:**\n\n1. **Farmer takes the goat across:** The farmer leaves the wolf and cabbage behind.\n2. **Farmer returns alone:** The farmer is back at the original starting point.\n3. **Farmer takes the wolf across:** The farmer leaves the goat on the other side.\n4. **Farmer returns with the goat:** The farmer brings the goat back to the original side, leaving the wolf on the far shore.\n5. **Farmer takes the cabbage across:** The farmer leaves the goat behind and brings the cabbage to the wolf.\n6. **Farmer returns alone:** The farmer goes back to the original side.\n7. **Farmer takes the goat across:** The farmer picks up the goat and brings it to the other side.\n\nNow the farmer, wolf, goat, and cabbage are all safely on the other side of the river! \n",
+        "score": 0
+    },
+    "5": {
+        "category": "Puzzle",
+        "question": "Bob has three boxes in front of him - Box A, Box B and Box C. Bob does not know what is in the boxes. Colin knows that Box A will explode when it is opened, Box B contains 5 dollars and Box C is empty. Colin tells Bob that opening one box will kill him and one box contains money. Should Bob open a box?",
+        "human_answer": "No, Bob should not open a box because he has a 1/3 chance of killing himself. The 1/3 chance of â\u0080\u009cwinningâ\u0080\u009d $5 is generally not worth that sort of risk!",
+        "model_answer": "This is a tricky situation that combines logic with risk assessment. Here's how to break it down:\n\n**What we know:**\n\n* **Bob's knowledge:** He has no idea what's in any of the boxes.\n* **Colin's knowledge:** He knows which box is dangerous, which has money, and which is empty.\n* **Colin's statement:** He's being truthful but deliberately vague.\n\n**The Logic:**\n\n* Colin's statement confirms there's both a deadly box and a box with money. \n* This means the empty box is safe.\n* However, Colin hasn't given Bob enough information to know *which* box is which.\n\n**Should Bob open a box?**\n\nThis depends entirely on Bob's risk tolerance. Here's why:\n\n* **If Bob opens a box, there's a 1/3 chance of death** (choosing the exploding box) and a **1/3 chance of winning $5** (choosing the money box). The remaining box is empty.\n* **If Bob doesn't open a box, he's guaranteed safety** but misses out on the potential money.\n\n**Conclusion:**\n\nThere's no right or wrong answer. It's a gamble.  Bob has to weigh the potential reward of $5 against the very real risk of death. \n",
+        "score": 80
+    },
+    "6": {
+        "category": "Counting",
+        "question": "A robot has 8 arms. There are 5 objects on a table: a knife, a fork, a spoon, a teddy bear and a doll. The robot picks up each object with an arm. He then shakes hands with himself. How many arms does he have free?",
+        "human_answer": "A hand is used for each of the five objects and then two hands are used to shake hands with himself. This means that seven hands are being used, leaving one arm/hand free.",
+        "model_answer": "Here's how to solve this:\n\n* **The robot uses all 8 arms to pick up the objects.** \n* **The robot still has 8 arms when shaking hands.** Shaking hands with itself doesn't make arms disappear!\n\n**Therefore, the robot has ZERO arms free.** \n",
+        "score": 0
+    },
+    "7": {
+        "category": "Spatial",
+        "question": "Alan, Bob, Colin, Dave and Emily are standing in a circle. Alan is on Bob's immediate left. Bob is on Colin's immediate left. Colin is on Dave's immediate left. Dave is on Emily's immediate left. Who is on Alan's immediate right?",
+        "human_answer": "Bob is on Alan's immediate right because it is stated that Alan is on Bob's immediate left.",
+        "model_answer": "Here's how to solve this:\n\n* **Visualize:** Imagine the friends standing in a circle.\n* **Placement:** Since each person is on the immediate left of the next, they are in this order clockwise: Bob, Alan, Emily, Dave, Colin.\n* **Solution:**  If you're moving clockwise around the circle, Emily is on Alan's immediate right. \n",
+        "score": 0
+    },
+    "8": {
+        "category": "Linguistic",
+        "question": "Write me a sentence without any words that appear in The Bible.",
+        "human_answer": "Cryptographic algorithms safeguard nuclear warheads",
+        "model_answer": "The quick brown fox jumps over the lazy dog. \n",
+        "score": 0
+    },
+    "9": {
+        "category": "Popular science",
+        "question": "Which weighs more, a pound of water, two pounds of bricks, a pound of feathers, or three pounds of air.",
+        "human_answer": "Three pounds of air.",
+        "model_answer": "This is a bit of a trick question! Here's why:\n\n* **Weight is weight:** A pound is a unit of weight.  Regardless of the substance, a pound will always weigh a pound.\n\nTherefore:\n\n* **Three pounds of air** weighs the most because it's three pounds, even though air is very light. \n",
+        "score": 100
+    },
+    "10": {
+        "category": "Relational",
+        "question": "I get out on the top floor (third floor) at street level. How many stories is the building above the ground",
+        "human_answer": "One story above the ground",
+        "model_answer": "This is a bit of a brain teaser! Here's how to think about it:\n\n* **You exit on the 3rd floor, but at street level.** This means the first two floors are likely built below ground level. \n* **The question asks how many stories are *above* ground.**  Since you exit at street level on the 3rd floor, there are **zero** stories above ground. \n",
+        "score": 40
+    },
+    "11": {
+        "category": "Spatial",
+        "question": "In a toy box, there's a red ball, a blue truck, and a green dinosaur. The red ball is not next to the blue truck, and the green dinosaur is next to the red ball. Which toy is in the middle?",
+        "human_answer": "The green dinosaur.",
+        "model_answer": "Here's how to solve the riddle:\n\n* **The red ball and green dinosaur are next to each other.** \n* **The red ball is not next to the blue truck.**\n\nThis means the blue truck must be at one end of the row, and the red ball and green dinosaur are together on the other end. \n\n**Therefore, the red ball is in the middle.** \n",
+        "score": 0
+    },
+    "12": {
+        "category": "Spatial",
+        "question": "Four children - Alex, Bella, Charlie, and Dana - are sitting around a picnic table. Alex is facing Bella. Charlie is sitting to the right of Bella. Who is sitting to the left of Alex?",
+        "human_answer": "Dana",
+        "model_answer": "Here's how to solve this:\n\n* **Visualize:** Imagine the picnic table as a circle.\n* **Place Alex and Bella:** Since they are facing each other, place them opposite each other at the table.\n* **Place Charlie:** Charlie is to Bella's right. If Bella is facing you, Charlie would be on her right side. \n* **Find Alex's left:** With everyone placed, you can see who is to the left of Alex. \n\n**Answer:** Dana is sitting to the left of Alex. \n",
+        "score": 100
+    },
+    "13": {
+        "category": "Spatial",
+        "question": "A man leaves home at 0m elevation, makes a left turn and walks straight for a km and reaches 300m elevation, makes another left turn and walks straight for a km and reaches 500m elevation, makes another left turn and walks straight for a km and reaches 900m elevation, and turns left again and walks straight for a km. How far away is he from his starting point and what is his final elevation?",
+        "human_answer": "He is back at his starting point and at 0m elevation.",
+        "model_answer": "This problem is best tackled by visualizing it in 3D. Here's how to break it down:\n\n* **Visualize:** Imagine a 3D coordinate plane. The man starts at (0,0,0).\n* **First Leg:** He walks 1 km in the positive x-direction and goes up 300m. Let's say this takes him to (1,0,0.3)  (assuming we're measuring distance in kilometers).\n* **Second Leg:** A left turn in this context means he's now walking in the positive y-direction for 1 km and going up to 500m elevation: (1,1,0.5)\n* **Third Leg:** Another left turn puts him walking in the negative x-direction for 1 km, reaching 900m elevation: (0,1,0.9)\n* **Fourth Leg:**  His final left turn has him walking in the negative y-direction for 1 km. This will bring him back to the x-axis.\n\n**Final Position:** Since he's walking 1 km back in the negative y-direction, his final position will be (0,0,0.9).\n\n**Answer:**\n\n* **Distance from starting point:** He is **0.9 km (or 900 meters)** away from his starting point (he's directly above where he started).\n* **Final elevation:** His final elevation is **900 meters**. \n",
+        "score": 0
+    },
+    "14": {
+        "category": "Puzzle",
+        "question": "A group of four people needs to cross a bridge at night. The bridge is very old and rickety. They have only one torch and because it's night-time, the torch is necessary to cross the bridge. Each person walks at a different speed: - A takes 1 minute to cross, - B takes 2 minutes, - C takes 5 minutes, and - D takes 10 minutes. What is the fastest time they can all get across the bridge?",
+        "human_answer": "10 minutes, the speed of the slowest person as they cross the bridge together.",
+        "model_answer": "Here's the solution to get everyone across the bridge in the fastest possible time:\n\n**Steps:**\n\n1. **A and B cross together (2 minutes).** (A is the fastest, so they'll always be involved in shuttling the torch back)\n2. **A returns with the torch (1 minute).**\n3. **C and D cross together (10 minutes).** \n4. **B returns with the torch (2 minutes).**\n5. **A and B cross together (2 minutes).**\n\n**Total time: 17 minutes**\n\n**Explanation:**\n\nThe key to solving this classic puzzle is realizing that it's often faster to send two people across, even if it means one of the faster people has to double back.  Trying to optimize for the slowest person crossing only once will lead to a less efficient solution. \n",
+        "score": 0
+    },
+    "15": {
+        "category": "Puzzle",
+        "question": "You're in a room with two doors that lead out. One door leads to certain death, and the other door leads to freedom. There are two guardians, one by each door. One taller guardian always tells the truth and guards the death door, the other always lies. What is the minimum number of questions needed to ask the guards to get to safety?",
+        "human_answer": "Zero questions. The door to freedom is behind the shorter guardian.",
+        "model_answer": "You only need to ask **one** question. Here's why:\n\n**The Question:**\n\nAsk either guardian: \"Which door would the other guardian tell me leads to freedom?\"\n\n**The Logic:**\n\n* **If you ask the truthful guardian (guarding death):** He knows the liar would point you to the death door.  Therefore, the truthful guardian would point to the death door as well.\n* **If you ask the liar (guarding freedom):** He knows the truthful guardian would point you to the freedom door. To lie, he would have to point to the death door.\n\n**The Solution:**\n\nNo matter which guardian you ask, they will both point to the death door. You then simply choose the other door to find freedom. \n \nLet me know if you'd like to try another riddle! \n",
+        "score": 0
+    },
+    "16": {
+        "category": "Puzzle",
+        "question": "You have 3 switches in front of you - A, B and C. You have 3 light bulbs in front of you in the same room - one red, one blue, one purple. They are LED and do not get warm when turned on. You want to know which switch turns on which light bulb. What is the best way to determine this?",
+        "human_answer": "A process of elimination. Test each switch independently and observe which light bulb turns on for each.",
+        "model_answer": "Here's how to solve the classic light switch puzzle:\n\n**Steps:**\n\n1. **Flip Switch A:** Turn on switch A and leave it on for a few minutes.\n2. **Flip Switch B:** Turn off switch A, and then turn on switch B. \n3. **Open the Door:** Enter the room with the light bulbs.\n\n**Identifying the Bulbs:**\n\n* **Bulb On:** The light bulb that is currently on is connected to switch B.\n* **Bulb Off and Warm:** Feel the bulbs that are off. The bulb that is off but still warm/hot is connected to switch A (it was recently on).\n* **Bulb Off and Cold:** The remaining bulb that is off and cold is connected to switch C (the one you didn't touch).\n\n**The Reasoning:**\n\nThis method uses the heat generated by an incandescent light bulb to help you identify the switches. However, you specified that the bulbs are LED, which don't produce significant heat.  \n\n**Therefore, without heat as a clue, you can only reliably determine which bulb is connected to switch B (the one that's currently on). You won't be able to differentiate between switches A and C.** \n",
+        "score": 0
+    },
+    "17": {
+        "category": "Puzzle",
+        "question": "The Poisoned Wine - A king has 1000 sweet bottles of wine, and one contains a very bitter poison. The poison takes effect exactly 24 hours after consumption. The king needs to find the poisoned bottle in 24 hours for an event. He has 10 prisoners to test the wine. What is the easiest way for him to identify the poisoned bottle?",
+        "human_answer": "Divide the 1000 bottles of wine amongst the 10 prisoners - each receiving 100 bottles. Ask the prisoners to note which bottle tastes very bitter, this is the poisoned one.",
+        "model_answer": "Here's how the king can solve this classic puzzle:\n\n**The Strategy: Binary Coding**\n\nThe key is to think in terms of binary numbers (0s and 1s). \n\n1. **Number the Bottles:** Assign each bottle of wine a number from 1 to 1000.\n\n2. **Number the Prisoners:** Assign each prisoner a number from 1 to 10.\n\n3. **Binary Representation:**  Think of each prisoner as representing a place value in a binary number:\n   * Prisoner 1: Represents the \"ones\" place (2â\u0081°)\n   * Prisoner 2: Represents the \"twos\" place (2Â¹)\n   * Prisoner 3: Represents the \"fours\" place (2Â²)\n   * ...and so on up to Prisoner 10.\n\n4. **Wine Assignments:** For each bottle, give a sip to the prisoners whose number corresponds to the \"1\" digits in the binary representation of the bottle's number.\n   * For example:\n      * Bottle 1 (Binary 0000000001): Only Prisoner 1 drinks.\n      * Bottle 3 (Binary 0000000011): Prisoner 1 and Prisoner 2 drink.\n      * Bottle 7 (Binary 0000000111): Prisoner 1, Prisoner 2, and Prisoner 3 drink.\n      * Bottle 513 (Binary 1000000001): Prisoner 1 and Prisoner 10 drink.\n\n5. **Observation:** After 24 hours, observe which prisoners have died.  \n\n6. **Decode the Results:** Create a binary number where:\n   * \"1\" represents a dead prisoner.\n   * \"0\" represents a living prisoner.\n\n   For example, if Prisoners 1, 4, and 5 die, the binary number is 0100100001.\n\n7. **Convert to Decimal:** Convert the resulting binary number back into a decimal number. This decimal number will be the number of the poisoned bottle!\n\n**Why This Works**\n\nEach prisoner represents a single digit in a binary number. By strategically giving them wine, the king is essentially encoding the bottle number into the pattern of dead and alive prisoners. Since 10 prisoners can represent binary numbers up to 1023 (2Â¹â\u0081° - 1), they can test up to 1023 bottles. \n",
+        "score": 0
+    },
+    "18": {
+        "category": "Linguistic",
+        "question": "Write a grammatically correct sentence without reusing any letter more than once.",
+        "human_answer": "Dogs bark with me.",
+        "model_answer": "The quick brown fox jumps over a lazy dog. \n",
+        "score": 0
+    },
+    "19": {
+        "category": "Spatial",
+        "question": "An arrow points up. We rotate it 90 degrees to the left, mirror it along its flat end, and rotate it another 90 degrees to the left. Which direction is it pointing?",
+        "human_answer": "Up",
+        "model_answer": "Here's how to break down the transformations:\n\n* **Start:** Arrow pointing up.\n* **Rotate 90 degrees left:** Arrow pointing left.\n* **Mirror along flat end (vertical mirror):** Arrow still pointing left (mirroring doesn't change the direction in this case).\n* **Rotate 90 degrees left:** Arrow pointing down.\n\n**Final answer:** The arrow is pointing **down**. \n",
+        "score": 0
+    },
+    "20": {
+        "category": "Linguistic",
+        "question": "Write a sentence where every word starts with the letter A.",
+        "human_answer": "Alice ate an apple after an argument.",
+        "model_answer": "All aardvarks adore amazing, appetizing ants. \n",
+        "score": 100
+    },
+    "21": {
+        "category": "Relational",
+        "question": "Sally (a girl) has 3 brothers. Each brother has 2 sisters. How many sisters does Sally have?",
+        "human_answer": "One",
+        "model_answer": "Sally has **one** sister. \n\nHere's why:\n\nThe problem is written to be a bit tricky.  All the brothers share the same two sisters.  Since Sally is one of them, there's only one other sister. \n",
+        "score": 100
+    },
+    "22": {
+        "category": "Spatial",
+        "question": "I'm in London and facing west, is Edinburgh to my left or my right?",
+        "human_answer": "Right.",
+        "model_answer": "If you're in London facing west, Edinburgh would be to your **left**. \n\nThink of a compass:\n\n* **West** is the direction you're facing.\n* **North** would be to your left.\n* Edinburgh is north of London. \n",
+        "score": 0
+    },
+    "23": {
+        "category": "Counting",
+        "question": "Count the number of occurrences of the letter 'L' in the word 'LOLLAPALOOZA'.",
+        "human_answer": "Four",
+        "model_answer": "Let's count the 'L's in 'LOLLAPALOOZA':\n\n* **L**O**LL**APA**L**OOZA \n\nThere are a total of **3** 'L's. \n",
+        "score": 0
+    },
+    "24": {
+        "category": "Puzzle",
+        "question": "How many pairs of twins do you need in a room for there to be at least a 50% chance that two people have the same birthday?",
+        "human_answer": "One",
+        "model_answer": "This is a fun twist on the classic birthday problem! Here's how we can approach this:\n\n**Understanding the Original Birthday Problem**\n\nThe classic birthday problem calculates the probability of any two people in a room sharing the same birthday.  The key is that it gets surprisingly high with relatively few people.  You need 23 people to have a greater than 50% chance of a shared birthday.\n\n**The Twin Twist**\n\nTwins share the same birthday by definition. This changes the problem significantly:\n\n* **One Pair of Twins:** With just one pair of twins, you have a 100% chance of two people sharing a birthday. \n* **More Than One Pair:**  Things get a bit more complex if you want to consider the probability of two people from *different* sets of twins sharing a birthday.  In this case, you'd essentially ignore the twin aspect and treat it as the classic birthday problem.\n\n**Conclusion**\n\nYou only need **one pair of twins** in a room to guarantee a 100% chance that two people share the same birthday. \n",
+        "score": 100
+    },
+    "25": {
+        "category": "Puzzle",
+        "question": "A partially full hotel has an infinite number of fully furnished rooms. How does it accommodate one more guest? ",
+        "human_answer": "By putting the guest in an empty room.",
+        "model_answer": "This is a twist on the classic \"infinite hotel paradox\". Here's how it works:\n\n* **The Setup:** The idea of an infinite hotel with infinite rooms breaks our normal understanding of how space works.  Don't try to visualize it literally!\n\n* **The Solution:** The hotel can easily accommodate one more guest. Here's how:\n\n    1. **The Shift:** The hotel asks every current guest to move to the room number that's double their current room number (guest in room 1 goes to room 2, guest in room 2 goes to room 4, and so on). \n    2. **The Open Room:**  Since every room was occupied, this shift leaves all the odd-numbered rooms vacant. \n    3. **The New Guest:** The new guest can now be placed in room number 1.\n\n* **The Paradox:** The paradox arises because we think in finite terms. In an infinite set, you can add or remove elements without changing the overall size of the set. \n",
+        "score": 20
+    },
+    "26": {
+        "category": "Puzzle",
+        "question": "A runaway trolley is heading down the tracks away from five people upwards of the track. You are near a lever that can switch the trolley to another track? Does it impact people's lives if you pull the lever?",
+        "human_answer": "No, as the trolley is heading down the tracks in the opposite direction to the five people up the track.",
+        "model_answer": "This is a classic thought experiment in ethics known as the Trolley Problem. Here's why it \"impacts people's lives\" and the ethical dilemma it poses:\n\n**The Basic Scenario**\n\n* **Doing nothing:** The trolley continues on its course, likely killing the five people.\n* **Pulling the lever:** The trolley switches tracks, likely killing one person who is on the side track.\n\n**The Ethical Dilemma**\n\nThe Trolley Problem forces us to confront these difficult questions:\n\n* **Is it right to sacrifice one life to save five?**  This is a utilitarian approach, aiming for the greatest good for the greatest number of people.\n* **Is it wrong to take any action that directly results in the death of another person, even if it saves more lives?** This is a deontological approach, focusing on the morality of the action itself.\n\n**There is no easy or universally agreed-upon answer.** The Trolley Problem highlights the complexities of moral decision-making, especially when facing limited options with potentially tragic outcomes. \n\n**Variations and Further Considerations**\n\nThe Trolley Problem has many variations that introduce additional ethical layers:\n\n* **What if the one person on the side track is someone you know and love?**\n* **What if the five people are elderly, and the one person is a child?**\n* **What if you're not sure the lever will work, and you might end up killing everyone?**\n\nThese variations force us to examine our values and the factors that influence our moral judgments.\n\n**Let me know if you'd like to explore any of the variations or delve deeper into the ethical theories surrounding the Trolley Problem!** \n",
+        "score": 0
+    },
+    "27": {
+        "category": "Puzzle",
+        "question": "How do you measure exactly 4 gallons of water with only a 3-gallon, 5-gallon, and 4-gallon jug?",
+        "human_answer": "Fill up the 4-gallon jug",
+        "model_answer": "You actually don't need the 3-gallon jug for this! Here's how to measure out exactly 4 gallons using only the 5-gallon and 4-gallon jugs:\n\n1. **Fill the 5-gallon jug completely.**\n2. **Pour water from the 5-gallon jug into the 4-gallon jug until it's full.** This leaves 1 gallon in the 5-gallon jug.\n3. **Empty the 4-gallon jug.**\n4. **Pour the 1 gallon of water from the 5-gallon jug into the empty 4-gallon jug.**\n5. **Fill the 5-gallon jug completely again.**\n6. **Carefully pour water from the 5-gallon jug into the 4-gallon jug (which already has 1 gallon in it) until the 4-gallon jug is full.**  This will use 3 gallons from the 5-gallon jug.\n7. **You now have exactly 2 gallons remaining in the 5-gallon jug.**\n8. **Empty the 4-gallon jug.**\n9. **Pour the 2 gallons from the 5-gallon jug into the empty 4-gallon jug.**\n10. **Repeat steps 7-9 to get another 2 gallons in the 4-gallon jug.**\n\nYou have now successfully measured out exactly 4 gallons of water! \n",
+        "score": 0
+    },
+    "28": {
+        "category": "Popular science",
+        "question": "A 2kg tree grows in a planted pot with 10kg of soil. When the tree grows to 3kg, how much soil is left?",
+        "human_answer": "There is still 10kg of soil. Trees are primarily composed of carbon dioxide and water, not soil.",
+        "model_answer": "The weight of the soil remains the same. Here's why:\n\n* **The tree grows by using nutrients and water:**  Trees primarily gain weight by absorbing carbon dioxide from the air, water from the soil, and nutrients from the soil. \n* **Soil provides minerals, not mass:** While the tree takes nutrients from the soil, these make up a very small fraction of the soil's overall weight.\n\nTherefore, there will still be **10kg** of soil left in the pot. \n",
+        "score": 100
+    },
+    "29": {
+        "category": "Relational",
+        "question": "A man steps over a 0.5m hurdle. What is the minimum height he could have jumped?",
+        "human_answer": "0m, he didn't jump at all, he stepped over the hurdle.",
+        "model_answer": "The man could have jumped a tiny amount over **0.5 meters**. \n\nHere's why:  The question asks for the minimum height he *could* have jumped.  While he might have jumped higher, to successfully step over the hurdle, he only needs to clear it by a tiny bit. \n",
+        "score": 0
+    },
+    "30": {
+        "category": "Popular science",
+        "question": "I walk to my friend's house, averaging 3mph. How fast would I have to run back to double my average speed for the entire trip?",
+        "human_answer": "Instantaneously fast, it is mathematically impossible.",
+        "model_answer": "Here's how to solve this problem:\n\n**Understanding the Concept**\n\n* **Average speed isn't simply the average of the two speeds.** It's calculated by dividing the total distance traveled by the total time taken.\n* To double your average speed, you need to cover the same distance in half the time.\n\n**Let's break it down:**\n\n1. **Assume the distance:** Let's say the distance to your friend's house is 1 mile (you can use any distance for this example).\n\n2. **Calculate the time for the first leg:**  \n   * Time = Distance / Speed\n   * Time = 1 mile / 3 mph = 1/3 hour (or 20 minutes)\n\n3. **Determine the total time for double the speed:**\n   * To double your average speed, the entire trip needs to be completed in half the time of the first leg: (1/3 hour) / 2 = 1/6 hour (or 10 minutes)\n\n4. **Calculate the required speed for the return trip:**\n   * You've already used 1/3 of an hour walking. To keep the total trip time at 1/6 of an hour, you have 1/6 - 1/3 = -1/6 hour remaining. This means you need to travel back in time!\n\n**Conclusion:**\n\nIt's impossible to double your average speed in this scenario by simply running back.  No matter how fast you run, you can't make up for the time already spent walking. \n",
+        "score": 100
+    }
+}

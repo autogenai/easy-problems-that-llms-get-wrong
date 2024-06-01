@@ -1,8 +1,0 @@
-model,mean_score,std_dev_score,z_interval_error,ci_lower,ci_upper
-gpt-4-turbo,38.0,46.0,17.0,23.0,55.0
-claude-3-opus,35.0,44.0,16.0,21.0,52.0
-gemini-1.5-pro,30.0,44.0,16.0,15.0,45.0
-mistral-large,28.0,38.0,14.0,15.0,42.0
-llama3-70b,27.0,42.0,15.0,14.0,43.0
-mistal-8x22b,20.0,38.0,14.0,7.0,34.0
-gemini-1.0-pro,16.0,33.0,12.0,6.0,29.0

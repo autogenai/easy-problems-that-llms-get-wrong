@@ -39,7 +39,7 @@ def litellm_service():
 
 # models = ["gpt-4-turbo-preview", "meta.llama3-70b-instruct-v1:0", "command-r", "mistral/mistral-large-latest", "mistral/open-mixtral-8x22b", "claude-3-opus-20240229", "vertex_ai/gemini-1.5-pro", "vertex_ai/gemini-1.0-pro"]
 
-# response = litellm_query.completion(model="vertex_ai/gemini-1.5-pro", messages=messages)
+# response = litellm_query.completion(model="vertex_ai/gemini-1.5-pro", messages=messages, num_retries=2)
 
 # message_parse(response)
 
@@ -74,14 +74,15 @@ class custom_llm_service:
         )
         return response.json()
 
-    def completion(self, messages: list, model="gpt-4-turbo-preview", **kwargs):
+    def completion(self, messages: list, model="gpt-4-turbo-preview", num_retries=2, **kwargs):
+        # Add in num_retry logic to match the LiteLLM service
         if model in ['gpt-4-turbo-preview', 'gpt-4-turbo']:
             response = custom_llm_service.openai_query(self, messages=messages, model=model, **kwargs)
         return response
 
 
 # %%
-## Test OpenAI Service
+# Test OpenAI Service
 # response = custom_llm_service.completion(
 #     messages=[{"role": "user","content": "What is the meaning of life?"}],
 #     model="gpt-4-turbo-preview",
@@ -103,7 +104,7 @@ async def run_in_executor(func, *args, **kwargs):
 async def runner(func, messages:list, batch_size=1, **kwargs):
     all_responses = []
     for idx in range(0, len(messages), batch_size):
-        print(f"Processing batch {idx + 1}-{idx + batch_size} ex {len(messages)}")
+        print(f"> Processing batch {idx + 1}-{idx + batch_size} ex {len(messages)}")
         batch_messages = messages[idx : idx + batch_size]
         responses = await asyncio.gather(
             *(
@@ -115,13 +116,23 @@ async def runner(func, messages:list, batch_size=1, **kwargs):
     return all_responses
 
 
-# %%
+#%%
 # messages = [{"role": "user", "content": "What is the meaning of life?"}]
-
-# responses = await runner(litellm.completion, messages=[messages] * 2, batch_size=5,
-#                          model="claude-3-opus-20240229", temperature=1, max_tokens=50)
+# hyperparams = {
+#     "max_tokens": 50, 
+#     "temperature": 0.5, 
+#     "num_retries": 1
+# }
+# responses = await runner(
+#     litellm.completion, 
+#     messages=[messages] * 2, 
+#     batch_size=5,
+#     model="claude-3-opus-20240229", 
+#     **hyperparams,
+# )
 
 # for response in responses:
 #     print(message_parse(response))
 #     print('\n------------------\n')
+
 # %%

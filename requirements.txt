@@ -1,0 +1,7 @@
+litellm
+requests
+python-decouple
+pandas
+numpy
+seaborn
+matplotlib

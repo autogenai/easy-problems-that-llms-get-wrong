@@ -33,7 +33,7 @@ async def get_llm_answers(
         benchmark_questions:dict, 
         models:list, 
         hyperparams:dict, 
-        answers_save_path:str
+        answers_save_path:str,
     ) -> dict[pd.DataFrame]:
     messages = [[{"role": "user", "content": q['question']}] 
                 for q in benchmark_questions]
@@ -60,23 +60,30 @@ async def get_llm_answers(
 #         llm_service=litellm_query, 
 #         benchmark_questions=benchmark_questions, 
 #         models=["mistral/open-mixtral-8x22b"], 
-#         hyperparams={'batch_size': 10, 'temperature': 0, 'max_tokens': 2048},
+#         hyperparams={'batch_size': 10, 'temperature': 0, 'max_tokens': 50, 'num_retries': 2},
 #         answers_save_path='./answers-test'
 # )
 # print(all_llm_answers)
 
 
 # %%
-def load_all_llm_answers_from_json(answers_save_path:str, prefix_replace='final_answers-') -> dict[pd.DataFrame]:
+def load_all_llm_answers_from_json(
+        answers_save_path:str, 
+        prefix_replace='final_answers-',
+        sub_folders=[''],
+    ) -> list[dict[pd.DataFrame]]:
     # reload all the scored answers from json files
-    if not os.path.exists(answers_save_path):
-        return {}
     all_llm_answers = {}
-    for output_file in os.listdir(f"{answers_save_path}/"):
-        if output_file.endswith(".json"):
-            outputs_df = pd.read_json(f"{answers_save_path}/{output_file}", orient='index')
-            model = output_file.replace(prefix_replace, '').replace('.json', '')
-            all_llm_answers[model] = outputs_df
+    for sub_folder in sub_folders:
+        answers_save_path_sub = f"{answers_save_path}{sub_folder}"
+        if not os.path.exists(answers_save_path_sub):
+            return {}
+        for output_file in os.listdir(f"{answers_save_path_sub}/"):
+            if output_file.endswith(".json"):
+                outputs_df = pd.read_json(f"{answers_save_path_sub}/{output_file}", orient='index')
+                model = output_file.replace(prefix_replace, '').replace('.json', '')
+                all_llm_answers.setdefault(model, pd.DataFrame())
+                all_llm_answers[model] = pd.concat([all_llm_answers[model], outputs_df])
     return all_llm_answers
 
 

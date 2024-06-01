@@ -4,7 +4,7 @@
 
 https://arxiv.org/abs/2405.19616
 
-## Language Model Benchmarking Tool
+### LLM Linguistic Benchmark Tool
 
 This tool facilitates benchmarking and statistical analysis of various Language Learning Models (LLMs) against a set of linguistic benchmark questions. It encapsulates functionalities to asynchronously query different LLMs, evaluate their responses, and perform statistical analysis to gauge the performance of each model.
 

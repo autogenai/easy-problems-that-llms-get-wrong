@@ -60,6 +60,20 @@ In order to get the most accurate results, it is best for a person to mark the L
 
 The Benchmark can be modified or extended by editing the `linguistic_benchmark.json` file in the root directory. Ensure the format remains consistent with existing entries.
 
+### Future Work and Limitations
+
+There are vast limitations to this approach, but further improvements might include:
+
+* [ ] Expanding the Linguistic Benchmark beyond thirty questions to increase statistical significance and test a more diverse range of inputs.
+* [ ] Using multiple-choice questions to make evaluation more reliable.
+* [ ] Running inference multiple times with the temperature for each model set above zero
+  (standardised and equivalent across all architectures) and generating aggregate statistics.
+* [ ] Testing on a sample of smaller LLMs to see if performance is correlated to model size.
+* [ ] Fine-tuning models with a training dataset of perturbed variations of well-known logictype problems found in the training corpora (on the internet) to see if this decreases
+  overfitting variance.
+* [ ] Testing advanced regularisation techniques for LLMs during the pre-training process.
+* [ ] Finding better methodologies to keep LLM outputs deterministic.
+
 ### Contributing
 
 Contributions to enhance or extend the functionality of this tool are welcome. Please adhere to conventional coding standards and include unit tests with your pull requests.

@@ -76,7 +76,7 @@ There are vast limitations to this approach, but further improvements might incl
 
 ### Contributing
 
-Contributions to enhance or extend the functionality of this tool are welcome. Please adhere to conventional coding standards and include unit tests with your pull requests.
+Contributions to enhance or extend the functionality of this tool are welcomed with open arms. Please adhere to conventional coding standards and include unit tests with your pull requests.
 
 1. Fork the repository.
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`).

@@ -1,5 +1,6 @@
 # %%
 import os
+import time
 import asyncio
 import litellm
 import requests
@@ -21,7 +22,13 @@ litellm.vertex_location = config("VERTEX_LOCATION")
 
 # %%
 def message_parse(response:dict):
-    messages = [m["message"]["content"] for m in response["choices"]]
+    try:
+        messages = [m["message"]["content"] for m in response["choices"]]
+    except Exception as e:
+        if response == {}:
+            return "None"
+        else:
+            raise ValueError(f"Response does not contain the expected key 'choices'. Error: {e}. Response: {response}")
     if len(messages) == 1:
         messages = messages[0]
     return messages
@@ -76,17 +83,18 @@ class custom_llm_service:
 
     def completion(self, messages: list, model="gpt-4-turbo-preview", num_retries=2, **kwargs):
         # Add in num_retry logic to match the LiteLLM service
-        if model in ['gpt-4-turbo-preview', 'gpt-4-turbo']:
+        if model in ['gpt-4-turbo-preview', 'gpt-4-turbo', 'gpt-4o']:
             response = custom_llm_service.openai_query(self, messages=messages, model=model, **kwargs)
         return response
 
 
-# %%
-# Test OpenAI Service
-# response = custom_llm_service.completion(
+# #%%
+# ##Test OpenAI Service
+# custom_llm_service_obj = custom_llm_service()
+# response = custom_llm_service_obj.completion(
 #     messages=[{"role": "user","content": "What is the meaning of life?"}],
 #     model="gpt-4-turbo-preview",
-#     max_tokens=10,
+#     max_tokens=4092,
 #     temperature=0,
 #     n=1,
 # )
@@ -101,33 +109,76 @@ async def run_in_executor(func, *args, **kwargs):
     return result
 
 
-async def runner(func, messages:list, batch_size=1, **kwargs):
-    all_responses = []
+# async def runner(func, messages:list, batch_size=1, validation_func=lambda x: True, **kwargs):
+    # all_responses = []
+    # for idx in range(0, len(messages), batch_size):
+    #     print(f"> Processing batch {idx + 1}-{idx + batch_size} ex {len(messages)}")
+    #     batch_messages = messages[idx : idx + batch_size]
+    #     for x in range(3):
+    #         responses = await asyncio.gather(
+    #             *(
+    #                 run_in_executor(func, messages=_messages, **kwargs)
+    #                 for _messages in batch_messages
+    #             )
+    #         )
+    #         pass_validation = all([validation_func(message_parse(response)) 
+    #                                 for response in responses])
+    #         if pass_validation:
+    #             all_responses.extend(responses)
+    #             break
+    #         else:
+    #             sum_failures = sum([not validation_func(message_parse(response)) 
+    #                                 for response in responses])
+    #             print(f"Validation failed on {sum_failures} calls... retrying...{x+1}")
+    #             time.sleep(5)
+
+    # return all_responses
+
+
+async def runner(func, messages:list, batch_size=1, validation_func=lambda x: True, **kwargs):
+    all_responses = [{}] * len(messages)
+    messages_copy = {i: message for i, message in enumerate(messages)}
     for idx in range(0, len(messages), batch_size):
         print(f"> Processing batch {idx + 1}-{idx + batch_size} ex {len(messages)}")
-        batch_messages = messages[idx : idx + batch_size]
-        responses = await asyncio.gather(
-            *(
-                run_in_executor(func, messages=_messages, **kwargs)
-                for _messages in batch_messages
+        for _retry in range(1, 4):
+            batch_messages = {i: message for i, message in messages_copy.items() 
+                              if i in list(range(idx, idx + batch_size))}
+            _responses = await asyncio.gather(
+                *(
+                    run_in_executor(func, messages=_messages, **kwargs)
+                    for _messages in batch_messages.values()
+                )
             )
-        )
-        all_responses.extend(responses)
+            responses = dict(zip(batch_messages.keys(), _responses))
+            for _idx, response in responses.items():
+                if validation_func(message_parse(response)):
+                    all_responses[_idx] = response
+                    del messages_copy[_idx]
+                else:
+                    print(f"Validation failed on response {_idx}. Retry #{_retry}")
+
+            if len(messages_copy) == 0:
+                break
+            else:
+                time.sleep(5)
+
     return all_responses
+
+
 
 
 #%%
 # messages = [{"role": "user", "content": "What is the meaning of life?"}]
 # hyperparams = {
-#     "max_tokens": 50, 
-#     "temperature": 0.5, 
+#     "max_tokens": 500, 
+#     "temperature": 0, 
 #     "num_retries": 1
 # }
 # responses = await runner(
 #     litellm.completion, 
-#     messages=[messages] * 2, 
+#     messages=[messages] * 5, 
 #     batch_size=5,
-#     model="claude-3-opus-20240229", 
+#     model="vertex_ai/gemini-1.5-pro", 
 #     **hyperparams,
 # )
 

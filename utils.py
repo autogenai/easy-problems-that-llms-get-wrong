@@ -1,4 +1,5 @@
 # %%
+from IPython.display import display
 from collections.abc import Callable
 from llm_service import message_parse
 from llm_service import runner
@@ -12,6 +13,7 @@ def model_clean(model_str:str) -> str:
     model_str = model_str.split('/')[-1]
     model_str = model_str.replace('.', '_').replace(':', '_')
     return model_str
+
 
 def save_answers_as_json(answers:list, benchmark_questions:dict, model:str, answers_save_path:str) -> pd.DataFrame:
     if len(answers) != len(benchmark_questions):
@@ -29,13 +31,16 @@ def save_answers_as_json(answers:list, benchmark_questions:dict, model:str, answ
 
 
 async def get_llm_answers(
-        llm_service:Callable, 
-        benchmark_questions:dict, 
-        models:list, 
-        hyperparams:dict, 
-        answers_save_path:str,
-    ) -> dict[pd.DataFrame]:
-    messages = [[{"role": "user", "content": q['question']}] 
+    llm_service:Callable, 
+    benchmark_questions:dict, 
+    models:list, 
+    hyperparams:dict, 
+    answers_save_path:str,
+    multiple_choice=False,
+    validation_func=lambda x: True,
+) -> dict[pd.DataFrame]:
+    question_str = 'question' if not multiple_choice else 'multi_choice_question'
+    messages = [[{"role": "user", "content": q[question_str]}] 
                 for q in benchmark_questions]
     all_llm_answers = {}
     for model in models:
@@ -44,6 +49,7 @@ async def get_llm_answers(
             llm_service.completion,
             messages=messages,
             model=model,
+            validation_func=validation_func,
             **hyperparams,
         )
         answers_df = save_answers_as_json(answers, benchmark_questions, model, answers_save_path)
@@ -71,13 +77,13 @@ def load_all_llm_answers_from_json(
         answers_save_path:str, 
         prefix_replace='final_answers-',
         sub_folders=[''],
-    ) -> list[dict[pd.DataFrame]]:
+) -> list[dict[pd.DataFrame]]:
     # reload all the scored answers from json files
     all_llm_answers = {}
     for sub_folder in sub_folders:
         answers_save_path_sub = f"{answers_save_path}{sub_folder}"
         if not os.path.exists(answers_save_path_sub):
-            return {}
+            continue
         for output_file in os.listdir(f"{answers_save_path_sub}/"):
             if output_file.endswith(".json"):
                 outputs_df = pd.read_json(f"{answers_save_path_sub}/{output_file}", orient='index')
@@ -114,7 +120,7 @@ def calculate_llm_stats(all_llm_answers:dict, bootstrap_n=10000) -> dict:
 
 def get_llm_stats(all_llm_answers:dict, stats_save_path:str, bootstrap_n=10000) -> pd.DataFrame:
     all_llm_stats = calculate_llm_stats(all_llm_answers, bootstrap_n)
-    stats_df = pd.DataFrame(all_llm_stats).transpose().sort_values('mean_score', ascending=False).round(0)
+    stats_df = pd.DataFrame(all_llm_stats).transpose().sort_values('mean_score', ascending=False)
     stats_df.index.name = 'model'
     os.makedirs(stats_save_path, exist_ok=True)
     stats_df.to_csv(f'./{stats_save_path}/final_stats.csv')

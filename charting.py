@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 mapper = {
     'gpt-4-turbo-preview': 'GPT-4 Turbo',
+    'gpt-4o': 'GPT-4o',
     'claude-3-opus-20240229': 'Claude 3 Opus',
     'gemini-1_5-pro': 'Gemini 1.5 Pro',
     'gemini-1_0-pro': 'Gemini 1.0 Pro',

@@ -65,8 +65,8 @@ The Benchmark can be modified or extended by editing the `linguistic_benchmark.j
 There are vast limitations to this approach, but further improvements might include:
 
 * [ ] Expanding the Linguistic Benchmark beyond thirty questions to increase statistical significance and test a more diverse range of inputs.
-* [ ] Using multiple-choice questions to make evaluation more reliable.
-* [ ] Running inference multiple times with the temperature for each model set above zero
+* [X] Using multiple-choice questions to make evaluation more reliable.
+* [X] Running inference multiple times with the temperature for each model set above zero
   (standardised and equivalent across all architectures) and generating aggregate statistics.
 * [ ] Testing on a sample of smaller LLMs to see if performance is correlated to model size.
 * [ ] Fine-tuning models with a training dataset of perturbed variations of well-known logictype problems found in the training corpora (on the internet) to see if this decreases

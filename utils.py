@@ -21,18 +21,20 @@ def save_answers_as_json(answers:list, benchmark_questions:dict, model:str, answ
         return pd.DataFrame()
     final_answers = copy.deepcopy(benchmark_questions)
     for idx, question in enumerate(final_answers):
-        question.update({'model_answer': message_parse(answers[idx])})
+        question.update({'model_answer': message_parse(answers[idx], model)})
         question.update({'score': ''})
     answers_df = pd.DataFrame(final_answers)
     model_name = model_clean(model)
     os.makedirs(answers_save_path, exist_ok=True)
+    if 'index' not in answers_df.columns:
+        answers_df.reset_index(inplace=True)
     answers_df.set_index('index').to_json(f'{answers_save_path}/final_answers-{model_name}.json', orient='index')
     return answers_df
 
 
 async def get_llm_answers(
     llm_service:Callable, 
-    benchmark_questions:dict, 
+    benchmark_questions:dict[list[dict]], 
     models:list, 
     hyperparams:dict, 
     answers_save_path:str,
@@ -40,11 +42,11 @@ async def get_llm_answers(
     validation_func=lambda x: True,
 ) -> dict[pd.DataFrame]:
     question_str = 'question' if not multiple_choice else 'multi_choice_question'
-    messages = [[{"role": "user", "content": q[question_str]}] 
-                for q in benchmark_questions]
     all_llm_answers = {}
     for model in models:
         print(f"Running  Benchmark for {model}")
+        messages = [[{"role": "user", "content": q[question_str]}] 
+                    for q in benchmark_questions[model_clean(model)]]
         answers = await runner(
             llm_service.completion,
             messages=messages,
@@ -52,7 +54,7 @@ async def get_llm_answers(
             validation_func=validation_func,
             **hyperparams,
         )
-        answers_df = save_answers_as_json(answers, benchmark_questions, model, answers_save_path)
+        answers_df = save_answers_as_json(answers, benchmark_questions[model_clean(model)], model, answers_save_path)
         all_llm_answers[model] = answers_df
     return all_llm_answers
 
@@ -62,9 +64,11 @@ async def get_llm_answers(
 
 # litellm_query = litellm_service()
 # benchmark_questions = json.load(open('linguistic_benchmark.json', 'r'))
+# models = ["mistral/open-mixtral-8x22b"]
+# questions = {m: benchmark_questions for m in models]
 # all_llm_answers = await get_llm_answers(
 #         llm_service=litellm_query, 
-#         benchmark_questions=benchmark_questions, 
+#         benchmark_questions=questions, 
 #         models=["mistral/open-mixtral-8x22b"], 
 #         hyperparams={'batch_size': 10, 'temperature': 0, 'max_tokens': 50, 'num_retries': 2},
 #         answers_save_path='./answers-test'
@@ -114,6 +118,7 @@ def calculate_llm_stats(all_llm_answers:dict, bootstrap_n=10000) -> dict:
             'z_interval_error': z_interval_error, 
             'ci_lower': ci_lower, 
             'ci_upper': ci_upper,
+            'output_count': len(outputs),
         }
     return all_llm_stats
 

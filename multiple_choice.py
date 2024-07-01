@@ -1,4 +1,5 @@
 import random
+import textwrap
 
 def construct_multiple_choice_question(question:dict):
     letters = ['A', 'B', 'C', 'D']
@@ -10,14 +11,14 @@ def construct_multiple_choice_question(question:dict):
     random_letter = random.choice(letters)
 
     prompt = f"""QUESTION
-    {question["question"]}
+{question["question"]}
 
-    ANSWERS
-    {answers}
+ANSWERS
+{answers}
 
-    Provide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:
-    {{"ANSWER": "{random_letter}"}}
-    """
+Provide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:
+{{"ANSWER": "{random_letter}"}}
+"""
     # print(prompt)
     # print('-------------------\n')
     # print(f"Correct answer: {correct_letter}")

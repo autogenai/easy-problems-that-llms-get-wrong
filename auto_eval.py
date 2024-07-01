@@ -91,7 +91,7 @@ def extract_all_scores(all_llm_eval_responses:dict) -> dict[list]:
     for model, eval_responses in all_llm_eval_responses.items():
         llm_scores = []
         for eval in eval_responses:
-            eval_response = message_parse(eval)
+            eval_response = message_parse(eval, model)
             score_json = extract_valid_json(eval_response)
             if score_json is None or 'score' not in score_json.keys():
                 score_json = {'score': np.nan}
@@ -144,7 +144,7 @@ def create_auto_eval_json(
         scores = all_llm_scores[model]
         for idx, question in enumerate(final_results):
             question.update({'model_answer': answers.iloc[idx]})
-            question.update({'eval_response': message_parse(eval_responses[idx])})
+            question.update({'eval_response': message_parse(eval_responses[idx], model)})
             question.update(scores[idx])
 
         final_df = pd.DataFrame(final_results)
@@ -163,7 +163,7 @@ def score_multiple_choice_answers(all_llm_answers:dict[pd.DataFrame], auto_eval_
     all_llm_answers = {model: data.reset_index() for model, data in all_llm_answers.items()}
     for model, answers_df in all_llm_answers.items():
         for idx, answer_row in answers_df.iterrows():
-            json_answer = extract_valid_json(answer_row['model_answer'])
+            json_answer = extract_valid_json(str(answer_row['model_answer']))
             json_answer_letter = None
             if json_answer is None or 'ANSWER' not in json_answer.keys():
                 score = 0

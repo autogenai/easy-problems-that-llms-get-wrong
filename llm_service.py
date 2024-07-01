@@ -21,7 +21,7 @@ litellm.vertex_location = config("VERTEX_LOCATION")
 
 
 # %%
-def message_parse(response:dict):
+def openai_message_parse(response:dict):
     try:
         messages = [m["message"]["content"] for m in response["choices"]]
     except Exception as e:
@@ -34,21 +34,52 @@ def message_parse(response:dict):
     return messages
 
 
+def anthropic_message_parse(response:dict):
+    try:
+        messages = response['content'][0]['text']
+    except Exception as e:
+        if response == {}:
+            return "None"
+        else:
+            raise ValueError(f"Response does not contain the expected key 'choices'. Error: {e}. Response: {response}")
+    if len(messages) == 1:
+        messages = messages[0]
+    return messages
+
+
+def message_parse(response:dict, model:str):
+    if response == {}:
+        return ""
+    if str(response)[:17] == 'ModelResponse(id=':
+        messages = openai_message_parse(response)
+    elif model in ['gpt-4-turbo-preview', 'gpt-4-turbo', 'gpt-4o']:
+        messages = openai_message_parse(response)
+    elif 'claude' in model:
+        messages = anthropic_message_parse(response)
+    else:
+        print(f"!!!!!! Could not determing model in `message_parse`: '{model}'")
+        messages = ""
+    return messages
+
+
 def litellm_service():
     return litellm
 
 
 # %%
-### Test LiteLLM Service
+## Test LiteLLM Service
 # litellm_query = litellm_service()
 
 # messages = [{ "content": "Write a sentence where every word starts with the letter A.","role": "user"}]
 
-# models = ["gpt-4-turbo-preview", "meta.llama3-70b-instruct-v1:0", "command-r", "mistral/mistral-large-latest", "mistral/open-mixtral-8x22b", "claude-3-opus-20240229", "vertex_ai/gemini-1.5-pro", "vertex_ai/gemini-1.0-pro"]
+# models = ["gpt-4-turbo-preview", "meta.llama3-70b-instruct-v1:0", "command-r", "mistral/mistral-large-latest", "mistral/open-mixtral-8x22b", "claude-3-opus-20240229", "claude-3-5-sonnet-20240620", "vertex_ai/gemini-1.5-pro", "vertex_ai/gemini-1.0-pro"]
 
-# response = litellm_query.completion(model="vertex_ai/gemini-1.5-pro", messages=messages, num_retries=2)
+# model = "claude-3-5-sonnet-20240620"
 
-# message_parse(response)
+# response = litellm_query.completion(model=model, messages=messages, num_retries=2)
+# print(response)
+
+# message_parse(response, model)
 
 
 # %%
@@ -80,25 +111,59 @@ class custom_llm_service:
             },
         )
         return response.json()
+    
+
+    def anthropic_query(self, messages:list, model="claude-3-5-sonnet-20240620", max_tokens=1000, temperature=0, n=1):
+        """
+        "messages": [
+            {
+                "role": "user",
+                "content": "What is the meaning of life?"
+            },
+        ]
+        """
+        if n > 1:
+            print('The "n" variable is not supported by Anthropic')
+        response = requests.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": f"{config('ANTHROPIC_API_KEY')}",
+                "anthropic-version": "2023-06-01",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": model,
+                "messages": messages,
+                "max_tokens": max_tokens,
+                "temperature": temperature,
+            },
+        )
+        return response.json()
+
 
     def completion(self, messages: list, model="gpt-4-turbo-preview", num_retries=2, **kwargs):
         # Add in num_retry logic to match the LiteLLM service
         if model in ['gpt-4-turbo-preview', 'gpt-4-turbo', 'gpt-4o']:
             response = custom_llm_service.openai_query(self, messages=messages, model=model, **kwargs)
+        elif 'claude' in model:
+            response = custom_llm_service.anthropic_query(self, messages=messages, model=model, **kwargs)
+        else:
+            raise ValueError(f"Model '{model}' not supported")
         return response
 
 
-# #%%
-# ##Test OpenAI Service
+#%%
+# ##Test Custom LLM Service
 # custom_llm_service_obj = custom_llm_service()
 # response = custom_llm_service_obj.completion(
 #     messages=[{"role": "user","content": "What is the meaning of life?"}],
-#     model="gpt-4-turbo-preview",
+#     model="claude-3-5-sonnet-20240620",
 #     max_tokens=4092,
 #     temperature=0,
 #     n=1,
 # )
 # print(response)
+# print(message_parse(response, "claude-3-5-sonnet-20240620"))
 
 
 # %%
@@ -107,32 +172,6 @@ async def run_in_executor(func, *args, **kwargs):
     with ThreadPoolExecutor() as pool:
         result = await loop.run_in_executor(pool, lambda: func(*args, **kwargs))
     return result
-
-
-# async def runner(func, messages:list, batch_size=1, validation_func=lambda x: True, **kwargs):
-    # all_responses = []
-    # for idx in range(0, len(messages), batch_size):
-    #     print(f"> Processing batch {idx + 1}-{idx + batch_size} ex {len(messages)}")
-    #     batch_messages = messages[idx : idx + batch_size]
-    #     for x in range(3):
-    #         responses = await asyncio.gather(
-    #             *(
-    #                 run_in_executor(func, messages=_messages, **kwargs)
-    #                 for _messages in batch_messages
-    #             )
-    #         )
-    #         pass_validation = all([validation_func(message_parse(response)) 
-    #                                 for response in responses])
-    #         if pass_validation:
-    #             all_responses.extend(responses)
-    #             break
-    #         else:
-    #             sum_failures = sum([not validation_func(message_parse(response)) 
-    #                                 for response in responses])
-    #             print(f"Validation failed on {sum_failures} calls... retrying...{x+1}")
-    #             time.sleep(5)
-
-    # return all_responses
 
 
 async def runner(func, messages:list, batch_size=1, validation_func=lambda x: True, **kwargs):
@@ -151,7 +190,7 @@ async def runner(func, messages:list, batch_size=1, validation_func=lambda x: Tr
             )
             responses = dict(zip(batch_messages.keys(), _responses))
             for _idx, response in responses.items():
-                if validation_func(message_parse(response)):
+                if validation_func(message_parse(response, kwargs['model'])):
                     all_responses[_idx] = response
                     del messages_copy[_idx]
                 else:

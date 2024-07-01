@@ -6,6 +6,7 @@ mapper = {
     'gpt-4-turbo-preview': 'GPT-4 Turbo',
     'gpt-4o': 'GPT-4o',
     'claude-3-opus-20240229': 'Claude 3 Opus',
+    'claude-3-5-sonnet-20240620': 'Claude 3.5 Sonnet',
     'gemini-1_5-pro': 'Gemini 1.5 Pro',
     'gemini-1_0-pro': 'Gemini 1.0 Pro',
     'mistral-large-latest': 'Mistral Large',
@@ -47,7 +48,7 @@ def define_data(final_stats: pd.DataFrame):
     return pd.DataFrame(data)
 
 
-def create_performance_chart(final_stats: pd.DataFrame):
+def create_performance_chart(final_stats: pd.DataFrame, title="LLM Liguisitc Benchmark Performance"):
     df = define_data(final_stats)
     # Create a basic barplot
     sns.set_theme(style="whitegrid")
@@ -72,10 +73,10 @@ def create_performance_chart(final_stats: pd.DataFrame):
                 [df["Confidence Interval High"][i], df["Confidence Interval High"][i]],
                 color='grey', lw=1)
 
-    plt.title("LLM Liguisitc Benchmark Performance", fontsize=18)
+    plt.title(title, fontsize=18)
     plt.xlabel("", fontsize=14)
     plt.ylabel("Average Score (%)", fontsize=14)
-    plt.xticks(rotation=45, fontsize=14)
+    plt.xticks(rotation=60, fontsize=14)
     plt.tight_layout()
 
     return barplot, plt

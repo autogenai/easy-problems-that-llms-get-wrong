@@ -12,7 +12,7 @@ ArXiv Paper: [https://arxiv.org/abs/2405.19616]()
 
 ### Hotz-Reflection
 
-[Description - LinkedIn Post](https://www.linkedin.com/posts/heikohotz_%3F%3F%3F%3F%3F%3F%3F-%3F%3F%3F%3F%3F%3F%3F-%3F%3F%3F%3F-%3F-activity-7209092819909517312-He-r?utm_source=share&utm_medium=member_desktop)
+[Description - LinkedIn Post](https://www.linkedin.com/posts/heikohotz_%3F%3F%3F%3F%3F%3F%3F-%3F%3F%3F%3F%3F%3F%3F-%3F%3F%3F%3F-%3F-activity-7209092819909517312-He-r?utm_source=share)
 
 **Basic prompt template**
 
@@ -30,6 +30,8 @@ Review the question carfully and assess your initial answer. You can amend the a
 ```
 
 **Results**
+
+[Full JSON results](https://github.com/autogenai/easy-problems-that-llms-get-wrong/tree/c4ae6be53df49307c81803af0b5d24e19ea983f5/2024-06-21-Multi-Benchmark%20(temp%3D0)/auto_eval_hotz_outputs)
 
 ![1719915880192](image/README/1719915880192.png)
 

@@ -1,5 +1,4 @@
-import random
-import textwrap
+import random 
 
 def construct_multiple_choice_question(question:dict):
     letters = ['A', 'B', 'C', 'D']

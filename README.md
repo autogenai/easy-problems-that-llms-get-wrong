@@ -2,9 +2,38 @@
 
 # Code for "Easy Problem That LLMs Get Wrong" Paper
 
-https://arxiv.org/abs/2405.19616
+Paper: https://arxiv.org/abs/2405.19616
 
-### LLM Linguistic Benchmark Tool
+### Benchmark Results
+
+[2024-06-21-Multi-Benchmark (temp=0)](https://github.com/autogenai/easy-problems-that-llms-get-wrong/tree/e5d6baa16e221205ef90f0833e9ca3c30b08f713/2024-06-21-Multi-Benchmark%20(temp%3D0))
+
+![1719913956971](image/README/1719913956971.png)
+
+### Hotz-Reflection
+
+[Description - LinkedIn Post](https://www.linkedin.com/posts/heikohotz_%3F%3F%3F%3F%3F%3F%3F-%3F%3F%3F%3F%3F%3F%3F-%3F%3F%3F%3F-%3F-activity-7209092819909517312-He-r?utm_source=share&utm_medium=member_desktop)
+
+**Basic prompt template**
+
+```
+f"""
+{question["multi_choice_question"]}
+
+INITIAL ANSWER
+{question["model_answer"]}
+
+REFLECTION TASK
+Review the question carfully and assess your initial answer. You can amend the answer if you wish too, otherwise return the original answer. Return in JSON format, for example:
+{{"ANSWER": {random.choice(['A','B','C','D'])}}}
+"""
+```
+
+**Results**
+
+![1719915880192](image/README/1719915880192.png)
+
+## LLM Linguistic Benchmark Tool
 
 This tool facilitates benchmarking and statistical analysis of various Language Learning Models (LLMs) against a set of linguistic benchmark questions. It encapsulates functionalities to asynchronously query different LLMs, evaluate their responses, and perform statistical analysis to gauge the performance of each model.
 
@@ -48,26 +77,38 @@ See [LiteLLM](https://github.com/BerriAI/litellm?tab=readme-ov-file#supported-pr
 
 ### Usage
 
-To run the benchmark tool, jump into the `main.ipynb` notebook and run all of the cells:
+To run the benchmark tool, jump into the `main.ipynb` notebook and run all of the cells.
 
-This will process the benchmark questions, query the LLMs, analyse the responses, and output the statistical summary and graph.
+Make changes to the #Variables notebook cell, which includes:
+
+- LLM models to test
+- Model hyperparameters
+- Method of answer evaluation
+- Whether to include reflection
+- The various save paths
+- The exectution steps to conduct (perhaps you only want to get answers, for example)
+
+Ultimately, this will process the benchmark questions, query the LLMs, analyse the responses, and output the statistical summary and graph.
 
 ### Most Accurate Results
 
-In order to get the most accurate results, it is best for a person to mark the LLM responses so as not to rely on the scores auto-generated in the `auto_eval_outputs` folder (by default marked by GPT-4 Turbo). You can edit the scores in the  `auto_eval_outputs` json files directly and then re-run the "generate_statistics" execution step in the  `main.ipynb` notebook to get the final results. This is how the authors did it for the paper, resulting in much lower scores than the unreliable auto eval.
+The multiple-choice questions are the most determinitistic and the more reliable to evaluate, as there is a clear set answer to measure against; however, open-ended questions can often expose illogical and inconsistent behavior more reliably, but are difficult to evalutate.
+
+For open-ended questions (non multiple choice) it is best for a person to mark the LLM responses so as not to rely on the scores auto-generated in the `auto_eval_outputs` folder (by default marked by GPT-4o). You can edit the scores in the  `auto_eval_outputs` json files directly and then re-run the "generate_statistics" execution step in the  `main.ipynb` notebook to get the final results. This is how the authors did it for the paper, resulting in much lower scores than the less reliable LLM based auto evaluation.
 
 ### Modifying the Benchmark Questions
 
-The Benchmark can be modified or extended by editing the `linguistic_benchmark.json` file in the root directory. Ensure the format remains consistent with existing entries.
+The Benchmark can be modified or extended by editing the [linguistic_benchmark.json](https://github.com/autogenai/easy-problems-that-llms-get-wrong/blob/e5d6baa16e221205ef90f0833e9ca3c30b08f713/linguistic_benchmark.json) file and [linguistic_benchmark_multi_choice.json](https://github.com/autogenai/easy-problems-that-llms-get-wrong/blob/e5d6baa16e221205ef90f0833e9ca3c30b08f713/linguistic_benchmark_multi_choice.json) in the root directory. Ensure the format remains consistent with existing entries.
 
 ### Future Work and Limitations
 
 There are vast limitations to this approach, but further improvements might include:
 
-* [ ] Expanding the Linguistic Benchmark beyond thirty questions to increase statistical significance and test a more diverse range of inputs.
 * [X] Using multiple-choice questions to make evaluation more reliable.
 * [X] Running inference multiple times with the temperature for each model set above zero
   (standardised and equivalent across all architectures) and generating aggregate statistics.
+* [X] Building in "Hotz Reflection" to allow the model to reflect and potentially change its answer.
+* [ ] Expanding the Linguistic Benchmark beyond thirty questions to increase statistical significance and test a more diverse range of inputs.
 * [ ] Testing on a sample of smaller LLMs to see if performance is correlated to model size.
 * [ ] Fine-tuning models with a training dataset of perturbed variations of well-known logictype problems found in the training corpora (on the internet) to see if this decreases
   overfitting variance.
@@ -77,9 +118,3 @@ There are vast limitations to this approach, but further improvements might incl
 ### Contributing
 
 Contributions to enhance or extend the functionality of this tool are welcomed with open arms. Please adhere to conventional coding standards and include unit tests with your pull requests.
-
-1. Fork the repository.
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4. Push to the branch (`git push origin feature/AmazingFeature`).
-5. Open a Pull Request.

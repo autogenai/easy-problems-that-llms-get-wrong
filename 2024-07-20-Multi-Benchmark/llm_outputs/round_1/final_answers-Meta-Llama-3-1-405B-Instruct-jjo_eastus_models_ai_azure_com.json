@@ -1,0 +1,482 @@
+{
+    "1": {
+        "category": "Puzzle",
+        "question": "You have six horses and want to race them to see which is fastest. What is the minimum number of races needed to do this?",
+        "human_answer": "Race them on a single race track with at least six lanes - the order in which they cross the finish line determines which is the fastest.",
+        "correct_answer": "One",
+        "multiple_choice": [
+            "One",
+            "Three",
+            "Unknown",
+            "Two"
+        ],
+        "multi_choice_question": "QUESTION\nYou have six horses and want to race them to see which is fastest. What is the minimum number of races needed to do this?\n\nANSWERS\nA. One\nB. Three\nC. Unknown\nD. Two\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"C\"}\n",
+        "correct_letter": "A",
+        "model_answer": "To determine the minimum number of races needed to find the fastest horse among six, let's consider the process step by step. \n\n1. **First Race**: If you race three horses against each other and then the other three against each other in a second race, you can identify the fastest horse in each group. However, this does not immediately tell you which of these two winners is the fastest overall.\n\n2. **Second Race**: You need a race between the winners of the two initial races to determine the fastest horse overall.\n\nHowever, the question asks for the minimum number of races to find the fastest horse, not to rank all horses. The approach of dividing the horses into two groups and then racing the winners against each other is the most efficient way to find the single fastest horse.\n\nTherefore, the minimum number of races needed to find the fastest horse among six is **three** (two initial races to find the fastest in each group, and one final race to determine the overall fastest).\n\n{\"ANSWER\": \"B\"}",
+        "score": ""
+    },
+    "2": {
+        "category": "Puzzle",
+        "question": "Suppose you're on a game show, and you're given the choice of three doors: Behind one door is a gold bar; behind the others, rotten vegetables. You pick a door, say No. 1, and the host asks you 'Do you want to pick door No. 2 instead?' What choice of door now gives you the biggest advantage?",
+        "human_answer": "It is not an advantage to switch. It makes no difference if I switch or not because no additional material information has been provided since the initial choice.",
+        "correct_answer": "They have equal probability of winning",
+        "multiple_choice": [
+            "Door No.2",
+            "Door No.1",
+            "Door No.3",
+            "They have equal probability of winning"
+        ],
+        "multi_choice_question": "QUESTION\nSuppose you're on a game show, and you're given the choice of three doors: Behind one door is a gold bar; behind the others, rotten vegetables. You pick a door, say No. 1, and the host asks you 'Do you want to pick door No. 2 instead?' What choice of door now gives you the biggest advantage?\n\nANSWERS\nA. Door No.2\nB. Door No.1\nC. Door No.3\nD. They have equal probability of winning\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"B\"}\n",
+        "correct_letter": "D",
+        "model_answer": "This problem is a variation of the classic Monty Hall problem. The key to understanding the solution lies in recognizing that the host's action of offering an alternative door is not random; it is based on knowledge of what's behind the doors. When you initially choose a door, there is a 1/3 chance that the gold bar is behind that door and a 2/3 chance that it is behind one of the other two doors.\n\nWhen the host offers you the chance to switch to door No. 2, he knows what's behind the doors. If the gold bar were behind door No. 1 (your original choice), the host could offer you either of the other two doors, as both have rotten vegetables. However, if the gold bar is behind one of the other two doors (which has a 2/3 probability), the host will only offer you the door with the rotten vegetables. \n\nThus, if you switch to door No. 2, you effectively get the benefit of the 2/3 probability that the gold bar was not behind your original choice, because the host's offer is constrained by the need to offer you a door that does not have the gold bar if your original choice was incorrect.\n\nGiven this analysis, the best strategy is to switch doors, as this gives you a 2/3 chance of winning the gold bar, compared to a 1/3 chance if you stick with your original choice.\n\n{\"ANSWER\": \"A\"}",
+        "score": ""
+    },
+    "3": {
+        "category": "Spatial",
+        "question": "You are playing Russian roulette with a six-shooter revolver. Your opponent puts in five bullets, spins the chambers and fires at himself, but no bullet comes out. He gives you the choice of whether or not you should spin the chambers again before firing at yourself. Should you spin?",
+        "human_answer": "Yes, you should spin again. There was only one empty chamber to start with which was fortunately aligned with the barrel when the opponent fired at himself. This means that the next chamber is 100% certain to have a bullet in which will fire when you next pull the trigger, very likely killing you. However, if you spin the chamber then you have a 5/6 chance of firing a bullet and a 1/6 chance of getting the empty chamber.",
+        "correct_answer": "Yes, you should spin again",
+        "multiple_choice": [
+            "No, you should not spin again",
+            "The probabilities are random and unknown",
+            "It makes no difference if you spin again or not",
+            "Yes, you should spin again"
+        ],
+        "multi_choice_question": "QUESTION\nYou are playing Russian roulette with a six-shooter revolver. Your opponent puts in five bullets, spins the chambers and fires at himself, but no bullet comes out. He gives you the choice of whether or not you should spin the chambers again before firing at yourself. Should you spin?\n\nANSWERS\nA. No, you should not spin again\nB. The probabilities are random and unknown\nC. It makes no difference if you spin again or not\nD. Yes, you should spin again\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"D\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To approach this problem, let's break down the probabilities involved in the game of Russian roulette under the given conditions.\n\nInitially, when the revolver is loaded with five bullets and one empty chamber, the probability of firing a bullet is 5/6, and the probability of not firing a bullet (hitting the empty chamber) is 1/6.\n\nWhen your opponent spins the chambers and fires at himself but no bullet comes out, it means he has hit the empty chamber. At this point, the revolver's configuration is no longer random because we have new information: one of the chambers is known to be empty, and it's the one that was just fired.\n\nNow, if you do not spin the chambers again, you effectively have a revolver with five bullets and one empty chamber, but you know the next chamber in line is not empty because the empty one was just fired. This means the probability of firing a bullet if you do not spin is 5/5 or 100% for the next chamber in line.\n\nOn the other hand, if you spin the chambers again, you reintroduce randomness into the configuration. The probability of firing a bullet goes back to 5/6, and the probability of not firing a bullet (hitting the empty chamber) goes back to 1/6.\n\nGiven these probabilities, spinning the chambers again gives you a 1/6 chance of survival, whereas not spinning guarantees a fatal outcome based on the mechanics of the game as described.\n\nTherefore, the logical choice is to spin the chambers again to have at least a 1/6 chance of survival.\n\n{\"ANSWER\": \"D\"}",
+        "score": ""
+    },
+    "4": {
+        "category": "Puzzle",
+        "question": "A farmer wants to cross a river and take with him a wolf, a goat and a cabbage. He has a boat with three secure separate compartments. If the wolf and the goat are alone on one shore, the wolf will eat the goat. If the goat and the cabbage are alone on the shore, the goat will eat the cabbage. What is the minimum number of crossings the farmer needs to make to bring the wolf, the goat and the cabbage across the river without anything being eaten?",
+        "human_answer": "Place the wolf, goat, and cabbage in separate secure compartments in the boat and row across the river in one crossing without being harmed.",
+        "correct_answer": "One crossing",
+        "multiple_choice": [
+            "Five crossings",
+            "The animals are not able to be transported across the river without being eaten.",
+            "Seven crossings",
+            "One crossing"
+        ],
+        "multi_choice_question": "QUESTION\nA farmer wants to cross a river and take with him a wolf, a goat and a cabbage. He has a boat with three secure separate compartments. If the wolf and the goat are alone on one shore, the wolf will eat the goat. If the goat and the cabbage are alone on the shore, the goat will eat the cabbage. What is the minimum number of crossings the farmer needs to make to bring the wolf, the goat and the cabbage across the river without anything being eaten?\n\nANSWERS\nA. Five crossings\nB. The animals are not able to be transported across the river without being eaten.\nC. Seven crossings\nD. One crossing\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"B\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To solve this problem, we need to ensure that the wolf and the goat are never left together on one shore without the farmer, and the goat and the cabbage are also never left together on one shore without the farmer. Here's a step-by-step solution:\n\n1. The farmer takes the goat across the river first and leaves it on the other side. This is the first crossing.\n2. The farmer goes back to the original side to pick up either the wolf or the cabbage. Let's say he picks up the wolf. This is the second crossing.\n3. The farmer leaves the wolf on the other side with the goat, but he cannot leave them together. So, he takes the goat back to the original side. This is the third crossing.\n4. The farmer leaves the goat on the original side and picks up the cabbage. He then takes the cabbage across the river and leaves it on the other side with the wolf. This is the fourth crossing.\n5. Finally, the farmer goes back to the original side to pick up the goat and takes it across the river again. This is the fifth crossing.\n\nAt this point, the farmer has successfully transported the wolf, the goat, and the cabbage across the river without anything being eaten. The minimum number of crossings required is five.\n\n{\"ANSWER\": \"A\"}",
+        "score": ""
+    },
+    "5": {
+        "category": "Puzzle",
+        "question": "Bob has three boxes in front of him - Box A, Box B and Box C. Bob does not know what is in the boxes. Colin knows that Box A will explode when it is opened, Box B contains 5 dollars and Box C is empty. Should Bob open a box? What box should Bob open?",
+        "human_answer": "Bob should not open a box because he has a 1/3 chance of killing himself. The 1/3 chance of “winning” $5 is generally not worth that sort of risk!",
+        "correct_answer": "No, Bob should not open any box",
+        "multiple_choice": [
+            "Yes, Box C",
+            "No, Bob should not open any box",
+            "Yes, Box B",
+            "Yes, Box A"
+        ],
+        "multi_choice_question": "QUESTION\nBob has three boxes in front of him - Box A, Box B and Box C. Bob does not know what is in the boxes. Colin knows that Box A will explode when it is opened, Box B contains 5 dollars and Box C is empty. Should Bob open a box? What box should Bob open?\n\nANSWERS\nA. Yes, Box C\nB. No, Bob should not open any box\nC. Yes, Box B\nD. Yes, Box A\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"D\"}\n",
+        "correct_letter": "B",
+        "model_answer": "To solve this, let's consider the information and outcomes:\n\n1. **Box A will explode when opened**: This is the worst-case scenario, resulting in harm or significant negative consequences. It's crucial to avoid opening this box.\n\n2. **Box B contains 5 dollars**: This is a positive outcome, albeit a small one. Opening this box results in a gain but does not provide information about the other boxes' contents.\n\n3. **Box C is empty**: Opening this box provides no immediate gain but is also risk-free. \n\nGiven that Bob does not know what is in the boxes, but we (or Colin) do, the decision should prioritize avoiding harm (not opening Box A) and then consider the potential gain (opening Box B) versus no gain but also no risk (opening Box C).\n\nHowever, since Bob lacks the information to make an informed decision, and we are considering what Bob should do based on his lack of knowledge, the safest approach for Bob is to avoid the risk of significant harm. Without knowing which box is which, opening any box poses the risk of it being Box A, which is undesirable.\n\nTherefore, the best advice for Bob, given his lack of information, is to not open any box, as this is the only way to guarantee avoiding the explosion.\n\n{\"ANSWER\": \"B\"}",
+        "score": ""
+    },
+    "6": {
+        "category": "Counting",
+        "question": "A robot has 8 arms. There are 5 objects on a table: a knife, a fork, a spoon, a teddy bear and a doll. The robot picks up each object with an arm. He then shakes hands with himself. How many arms does he have free?",
+        "human_answer": "A hand is used for each of the five objects and then two hands are used to shake hands with himself. This means that seven hands are being used, leaving one arm/hand free.",
+        "correct_answer": "1",
+        "multiple_choice": [
+            "Other",
+            "1",
+            "2",
+            "0"
+        ],
+        "multi_choice_question": "QUESTION\nA robot has 8 arms. There are 5 objects on a table: a knife, a fork, a spoon, a teddy bear and a doll. The robot picks up each object with an arm. He then shakes hands with himself. How many arms does he have free?\n\nANSWERS\nA. Other\nB. 1\nC. 2\nD. 0\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"D\"}\n",
+        "correct_letter": "B",
+        "model_answer": "To solve this, let's break it down step by step:\n\n1. The robot has 8 arms initially.\n2. There are 5 objects on the table that the robot picks up, which means the robot uses 5 of its arms to hold these objects.\n3. After picking up the objects, the robot shakes hands with itself. This action requires 2 arms (since shaking hands involves two parties, in this case, the robot itself).\n\nSo, from the initial 8 arms:\n- 5 arms are used to hold objects.\n- 2 arms are used for the handshake.\n\nThis totals 7 arms in use. Therefore, the robot has 8 - 7 = 1 arm free.\n\n{\"ANSWER\": \"B\"}",
+        "score": ""
+    },
+    "7": {
+        "category": "Spatial",
+        "question": "Alan, Bob, Colin, Dave and Emily are standing in a circle. Alan is on Bob's immediate left. Bob is on Colin's immediate left. Colin is on Dave's immediate left. Dave is on Emily's immediate left. Who is on Alan's immediate right?",
+        "human_answer": "Bob is on Alan's immediate right because it is stated that Alan is on Bob's immediate left.",
+        "correct_answer": "'Bob'",
+        "multiple_choice": [
+            "'Bob'",
+            "'Dave'",
+            "No one",
+            "'Emily'"
+        ],
+        "multi_choice_question": "QUESTION\nAlan, Bob, Colin, Dave and Emily are standing in a circle. Alan is on Bob's immediate left. Bob is on Colin's immediate left. Colin is on Dave's immediate left. Dave is on Emily's immediate left. Who is on Alan's immediate right?\n\nANSWERS\nA. 'Bob'\nB. 'Dave'\nC. No one\nD. 'Emily'\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"D\"}\n",
+        "correct_letter": "A",
+        "model_answer": "To solve this, let's arrange the people according to the information given:\n\n1. Alan is on Bob's immediate left.\n2. Bob is on Colin's immediate left.\n3. Colin is on Dave's immediate left.\n4. Dave is on Emily's immediate left.\n\nSo, the arrangement in a linear fashion based on the immediate left positioning would be: Alan, Bob, Colin, Dave, Emily.\n\nHowever, since they are standing in a circle, we need to consider that the first person (Alan) comes after the last person (Emily) when we connect the ends to form a circle. Therefore, the person on Alan's immediate right would be the one who is listed after him in the circular arrangement, but since we're looking for who is on his right, we actually need to look at who is on the left in the linear list since the person to his right in a circular fashion would be the one he is to the left of in a linear list. But to clarify, given the circular nature, we simply look at who is next to him in the sequence provided.\n\nGiven the arrangement, the person next to Alan (on his right in the circular arrangement) is Bob.\n\n{\"ANSWER\": \"A\"}",
+        "score": ""
+    },
+    "8": {
+        "category": "Linguistic",
+        "question": "Write me a sentence without any words that appear in The Bible",
+        "human_answer": "Cryptographic algorithms safeguard nuclear warheads.",
+        "correct_answer": "Cryptographic algorithms safeguard nuclear warheads.",
+        "multiple_choice": [
+            "Quixotic zephyrs vexed the jabberwocky's kumquat garden.",
+            "Our computer, engineered in a contemporary lab, processes data flawlessly and efficiently.",
+            "Cryptographic algorithms safeguard nuclear warheads.",
+            "The computer swiftly executed complex algorithms."
+        ],
+        "multi_choice_question": "QUESTION\nWrite me a sentence without any words that appear in The Bible\n\nANSWERS\nA. Quixotic zephyrs vexed the jabberwocky's kumquat garden.\nB. Our computer, engineered in a contemporary lab, processes data flawlessly and efficiently.\nC. Cryptographic algorithms safeguard nuclear warheads.\nD. The computer swiftly executed complex algorithms.\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"A\"}\n",
+        "correct_letter": "C",
+        "model_answer": "To answer this question, we need to consider the vocabulary used in The Bible and find a sentence that avoids all words present in it. The Bible, written over centuries, includes a vast array of words, but its vocabulary is naturally limited to the words known and used in the languages it was written in (primarily Hebrew, Greek, and Aramaic, with translations into many other languages including English). The English translations of The Bible, which are what most English speakers are familiar with, contain a broad range of words, but modern English has introduced many new words, especially in fields like technology, science, and fantasy, that are not present in The Bible.\n\nLet's analyze the options given:\n\nA. \"Quixotic zephyrs vexed the jabberwocky's kumquat garden.\" This sentence includes several words that are unlikely to be found in The Bible, such as \"quixotic\" (derived from the name of the main character in the novel \"Don Quixote\"), \"jabberwocky\" (a nonsense word from a Lewis Carroll poem), and \"kumquat\" (a type of fruit not mentioned in The Bible). However, words like \"the\" and \"garden\" are certainly present in The Bible.\n\nB. \"Our computer, engineered in a contemporary lab, processes data flawlessly and efficiently.\" This sentence includes modern technological terms like \"computer,\" \"engineered,\" \"lab,\" \"processes data,\" which are not in The Bible. However, words like \"our,\" \"in,\" \"a,\" \"and\" are common in The Bible.\n\nC. \"Cryptographic algorithms safeguard nuclear warheads.\" This sentence includes highly technical and modern terms like \"cryptographic algorithms\" and \"nuclear warheads,\" none of which would be in The Bible. However, the basic structure and some words might still overlap.\n\nD. \"The computer swiftly executed complex algorithms.\" Similar to B and C, this sentence includes modern terms like \"computer\" and \"algorithms\" that are not in The Bible. However, words like \"the\" are present.\n\nGiven the task, the best approach is to select the sentence that includes the most specific and modern vocabulary not present in The Bible, acknowledging that basic words like articles and conjunctions are unavoidable and are present in The Bible.\n\nConsidering the options, all of them include modern terms not present in The Bible, but option A stands out for its use of particularly unique and modern words (\"quixotic,\" \"jabberwocky,\" \"kumquat\") that are less likely to have equivalents or be mentioned in The Bible compared to the technological terms in the other options, which, although not in The Bible, could be argued to be more about the context of modernity rather than the words themselves being completely absent in any form.\n\nHowever, upon closer inspection, the presence of unique, modern words in all options but the specific inclusion of highly technical and modern terms in options B, C, and D, which are clearly absent from The Bible, makes the choice more about the nature of the words rather than their age. Given the task's impossibility to fulfill completely due to basic vocabulary overlap, the selection should lean towards the sentence that best embodies the spirit of the question by using terms that are as far removed from The Bible's context as possible.\n\nTherefore, the answer, focusing on the intent of using modern and unique terms not present in The Bible, and acknowledging the oversight in initial analysis regarding the presence of unique words across all options, should highlight the sentence that most distinctly represents modern concepts and terminology absent in The Bible.\n\n{\"ANSWER\": \"C\"}",
+        "score": ""
+    },
+    "9": {
+        "category": "Popular science",
+        "question": "Which weighs more, a pound of water, two pounds of bricks, a pound of feathers, or three pounds of air.",
+        "human_answer": "Three pounds of air.",
+        "correct_answer": "Three pounds of air.",
+        "multiple_choice": [
+            "A pound of feathers.",
+            "Three pounds of air.",
+            "They all weigh the same.",
+            "Two pounds of brick."
+        ],
+        "multi_choice_question": "QUESTION\nWhich weighs more, a pound of water, two pounds of bricks, a pound of feathers, or three pounds of air.\n\nANSWERS\nA. A pound of feathers.\nB. Three pounds of air.\nC. They all weigh the same.\nD. Two pounds of brick.\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"A\"}\n",
+        "correct_letter": "B",
+        "model_answer": "To solve this, let's analyze each option given:\n\n1. A pound of water.\n2. Two pounds of bricks.\n3. A pound of feathers.\n4. Three pounds of air.\n\nEach option is compared by its weight, not by its density or volume. Therefore, the comparison is straightforward regarding weight:\n\n- A pound of water, a pound of feathers, and a pound of anything else all weigh the same, 1 pound.\n- Two pounds of bricks weigh more than any single pound of the other items listed, at 2 pounds.\n- Three pounds of air, though air is essentially weightless in practical terms, if we consider the question's intent, would imply a comparison based on the stated weight, thus weighing more than the single-pound options.\n\nGiven the options provided in ANSWERS:\n\nA. A pound of feathers. - Incorrect because it's only 1 pound.\nB. Three pounds of air. - This is the heaviest among the options provided, even though the practicality of measuring air's weight in this context is unusual.\nC. They all weigh the same. - Incorrect because the question includes options that explicitly weigh more than others (2 pounds and 3 pounds compared to 1 pound).\nD. Two pounds of brick. - This weighs more than the single-pound options but less than the three-pound option.\n\nConsidering the logic above, the correct answer is the option that weighs the most among the provided choices.\n\n{\"ANSWER\": \"B\"}",
+        "score": ""
+    },
+    "10": {
+        "category": "Relational",
+        "question": "I get out on the top floor (third floor) at street level. How many stories is the building above the ground?",
+        "human_answer": "One story above the ground, as exiting at street level requires a single story building.",
+        "correct_answer": "One story above the ground",
+        "multiple_choice": [
+            "Two stories above the ground",
+            "Zero stories above the ground",
+            "Three stories above the ground",
+            "One story above the ground"
+        ],
+        "multi_choice_question": "QUESTION\nI get out on the top floor (third floor) at street level. How many stories is the building above the ground?\n\nANSWERS\nA. Two stories above the ground\nB. Zero stories above the ground\nC. Three stories above the ground\nD. One story above the ground\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"C\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To solve this, let's break down the information given:\n\n1. You get out on the top floor.\n2. This top floor is the third floor.\n3. This third floor is at street level.\n\nGiven that the third floor is at street level, it implies that the building's ground floor or base is below the street level. Therefore, if the third floor is at street level, the floors below it (the second and first floors) would be below the street level, but still above the ground since the question implies the building is built from the ground up.\n\nHowever, the key point here is understanding what is meant by \"above the ground.\" Since the third floor is at street level, it suggests that the entire structure is built in such a way that its base might be lower than the street, but for the purpose of counting stories \"above the ground\" in a conventional sense (i.e., starting from the street level as a reference for what is \"above ground\"), we must consider the description's implications carefully.\n\nGiven the description, if the third floor is at street level, and assuming a standard building configuration where floors are stacked above each other without gaps, the entire structure is built into the ground or a hillside such that the third floor is the first to reach street level. This means there are no stories \"above the ground\" in the conventional sense if we consider \"above the ground\" to mean above the street level, as the third floor is already at this level.\n\nHowever, interpreting the question strictly based on the information given and focusing on the phrase \"above the ground\" without assuming street level as the reference, one might argue differently. Yet, the critical detail is that the third floor being at street level suggests an unconventional building setup where the structure is partially below street level.\n\nTherefore, considering the conventional interpretation of \"above the ground\" and the provided description, the best answer is:\n\n{\"ANSWER\": \"B\"}",
+        "score": ""
+    },
+    "11": {
+        "category": "Spatial",
+        "question": "In a toy box, there's a red ball, a blue truck, and a green dinosaur. The red ball is not next to the blue truck, and the green dinosaur is next to the red ball. Which toy is in the middle?",
+        "human_answer": "The green dinosaur.",
+        "correct_answer": "'The green dinosaur'",
+        "multiple_choice": [
+            "'The red ball'",
+            "'The blue truck'",
+            "None of them are positioned in the middle.",
+            "'The green dinosaur'"
+        ],
+        "multi_choice_question": "QUESTION\nIn a toy box, there's a red ball, a blue truck, and a green dinosaur. The red ball is not next to the blue truck, and the green dinosaur is next to the red ball. Which toy is in the middle?\n\nANSWERS\nA. 'The red ball'\nB. 'The blue truck'\nC. None of them are positioned in the middle.\nD. 'The green dinosaur'\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"D\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To solve this, let's break down the information given:\n\n1. The red ball is not next to the blue truck.\n2. The green dinosaur is next to the red ball.\n\nFrom point 2, we know the green dinosaur and the red ball are adjacent. Given point 1, the blue truck cannot be next to the red ball, which means the blue truck must be on the other side of the green dinosaur (or the arrangement would be the other way around, but the principle holds).\n\nSo, the arrangement could be: Blue Truck - Green Dinosaur - Red Ball, or the reverse. In either case, the green dinosaur is in the middle because it's the only one that can be next to the red ball without violating the rule that the red ball and the blue truck cannot be adjacent.\n\nTherefore, the toy in the middle is the green dinosaur.\n\n{\"ANSWER\": \"D\"}",
+        "score": ""
+    },
+    "12": {
+        "category": "Spatial",
+        "question": "Four children - Alex, Bella, Charlie, and Dana - are sitting around a picnic table. Alex is facing Bella. Charlie is sitting to the right of Bella. Who is sitting to the left of Alex?",
+        "human_answer": "Dana",
+        "correct_answer": "'Dana'",
+        "multiple_choice": [
+            "'Dana'",
+            "'Bella'",
+            "No one",
+            "'Charlie'"
+        ],
+        "multi_choice_question": "QUESTION\nFour children - Alex, Bella, Charlie, and Dana - are sitting around a picnic table. Alex is facing Bella. Charlie is sitting to the right of Bella. Who is sitting to the left of Alex?\n\nANSWERS\nA. 'Dana'\nB. 'Bella'\nC. No one\nD. 'Charlie'\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"B\"}\n",
+        "correct_letter": "A",
+        "model_answer": "To solve this problem, let's break down the information given:\n\n1. Alex is facing Bella.\n2. Charlie is sitting to the right of Bella.\n\nGiven that Alex is facing Bella, we can deduce that Bella is directly across from Alex. Since Charlie is to the right of Bella, from Alex's perspective, Charlie would be to the left of the person directly across from them (Bella), but this does not directly answer who is to the left of Alex.\n\nHowever, considering the arrangement around a picnic table, which is typically circular or square, and knowing the positions of Alex, Bella, and Charlie, we can infer the position of Dana. Since Charlie is to the right of Bella, and Bella is facing Alex, Dana must be the one to the left of Alex to complete the circle.\n\nTherefore, the person sitting to the left of Alex is Dana.\n\n{\"ANSWER\": \"A\"}",
+        "score": ""
+    },
+    "13": {
+        "category": "Spatial",
+        "question": "A man leaves home at 0m elevation, makes a left turn and walks straight for a km and reaches 300m elevation, makes another left turn and walks straight for a km and reaches 500m elevation, makes another left turn and walks straight for a km and reaches 900m elevation, and turns left again and walks straight for a km. How far away is he from his starting point and what is his final elevation?",
+        "human_answer": "He is back at his starting point and at 0m elevation.",
+        "correct_answer": "0m from starting point, 0m elevation.",
+        "multiple_choice": [
+            "We cannot accurately determine his final position and elevation.",
+            "0m from starting point, 1700m elevation.",
+            "2000m from starting point, 900m elevation.",
+            "0m from starting point, 0m elevation."
+        ],
+        "multi_choice_question": "QUESTION\nA man leaves home at 0m elevation, makes a left turn and walks straight for a km and reaches 300m elevation, makes another left turn and walks straight for a km and reaches 500m elevation, makes another left turn and walks straight for a km and reaches 900m elevation, and turns left again and walks straight for a km. How far away is he from his starting point and what is his final elevation?\n\nANSWERS\nA. We cannot accurately determine his final position and elevation.\nB. 0m from starting point, 1700m elevation.\nC. 2000m from starting point, 900m elevation.\nD. 0m from starting point, 0m elevation.\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"B\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To solve this, let's visualize the man's movements. He starts at 0m elevation, then makes a left turn and walks straight for a km, reaching 300m elevation. This means he has moved in one direction (let's say north for simplicity) and has also gone up in elevation.\n\n1. **First Movement (North, Up 300m):** He is now 1 km away from his starting point and at 300m elevation.\n\nThen, he makes another left turn and walks straight for a km, reaching 500m elevation. This turn would have him moving perpendicular to his previous direction (so, west now), and he continues to go up.\n\n2. **Second Movement (West, Up 200m from the previous elevation):** He is now 1 km west and 1 km north of his starting point and at 500m elevation.\n\nNext, he makes another left turn and walks straight for a km, reaching 900m elevation. This turn would have him moving south now, still going up.\n\n3. **Third Movement (South, Up 400m from the previous elevation):** At this point, he would have moved back to the same latitude as his starting point (since he moved 1 km north and then 1 km south), but he is still 1 km west and now at 900m elevation.\n\nFinally, he turns left again and walks straight for a km. This turn would have him moving east now.\n\n4. **Fourth Movement (East):** Since he was 1 km west of his starting point and then moved 1 km east, he would end up back at the same longitude as his starting point. There is no mention of a change in elevation during this final movement, so we can infer that his elevation remains the same.\n\nGiven these movements, he ends up back at his starting point in terms of latitude and longitude but remains at the elevation he reached after his third movement.\n\nTherefore, the correct answer is:\n\n{\"ANSWER\": \"D\"}",
+        "score": ""
+    },
+    "14": {
+        "category": "Puzzle",
+        "question": "A group of four people needs to cross a bridge at night. The bridge is very old and rickety. They have only one torch and because it's night-time, the torch is necessary to cross the bridge. Each person walks at a different speed: - A takes 1 minute to cross, - B takes 2 minutes, - C takes 5 minutes, and - D takes 10 minutes. What is the fastest time they can all get across the bridge?",
+        "human_answer": "10 minutes, the speed of the slowest person as they cross the bridge together.",
+        "correct_answer": "10 minutes",
+        "multiple_choice": [
+            "There is not enough information to determine the fastest time.",
+            "10 minutes",
+            "14 minutes",
+            "17 minutes"
+        ],
+        "multi_choice_question": "QUESTION\nA group of four people needs to cross a bridge at night. The bridge is very old and rickety. They have only one torch and because it's night-time, the torch is necessary to cross the bridge. Each person walks at a different speed: - A takes 1 minute to cross, - B takes 2 minutes, - C takes 5 minutes, and - D takes 10 minutes. What is the fastest time they can all get across the bridge?\n\nANSWERS\nA. There is not enough information to determine the fastest time.\nB. 10 minutes\nC. 14 minutes\nD. 17 minutes\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"C\"}\n",
+        "correct_letter": "B",
+        "model_answer": "To solve this, let's break down the steps to find the fastest time they can all get across the bridge with the given constraints.\n\n1. **Identify the Bottleneck:** The slowest person, D, takes 10 minutes to cross. This is a significant portion of the time, and we need to minimize how often the torch needs to be taken back and forth, especially for the slower individuals.\n\n2. **Optimize the Crossing:** The optimal strategy involves minimizing the number of crossings and ensuring that the faster individuals facilitate the slower ones in the most efficient manner possible.\n\n   - First, A and B cross together (takes 2 minutes), then A returns with the torch (1 minute). Total time so far: 3 minutes.\n   - Next, C and D cross together (takes 10 minutes), then B returns with the torch (2 minutes). Total time so far: 15 minutes.\n   - Finally, A and B cross together again (takes 2 minutes).\n\n3. **Calculate the Total Time:** Following the steps above, the total time is 3 minutes (first crossing and return) + 12 minutes (second crossing and return) + 2 minutes (final crossing) = 17 minutes.\n\nTherefore, the fastest time they can all get across the bridge is 17 minutes.\n\n{\"ANSWER\": \"D\"}",
+        "score": ""
+    },
+    "15": {
+        "category": "Puzzle",
+        "question": "You're in a room with two doors that lead out. One door leads to certain death, and the other door leads to freedom. There are two guardians, one by each door. One taller guardian always tells the truth and guards the death door, the other always lies. What is the minimum number of questions needed to ask the guards to get to safety?",
+        "human_answer": "Zero questions. The door to freedom is behind the shorter guardian.",
+        "correct_answer": "Zero questions",
+        "multiple_choice": [
+            "The door leading to freedom can never be determined.",
+            "Zero questions",
+            "One question",
+            "Two questions"
+        ],
+        "multi_choice_question": "QUESTION\nYou're in a room with two doors that lead out. One door leads to certain death, and the other door leads to freedom. There are two guardians, one by each door. One taller guardian always tells the truth and guards the death door, the other always lies. What is the minimum number of questions needed to ask the guards to get to safety?\n\nANSWERS\nA. The door leading to freedom can never be determined.\nB. Zero questions\nC. One question\nD. Two questions\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"C\"}\n",
+        "correct_letter": "B",
+        "model_answer": "To solve this puzzle, we need to figure out how to get to the door that leads to freedom with the least number of questions. Since one guardian always tells the truth and the other always lies, and we don't know which is which or which door they guard, we have to ask a question that will give us the most information regardless of who we ask.\n\nHere's the strategy:\n\n1. Choose one of the guardians and ask, \"If I were to ask the other guardian which door leads to freedom, what would they say?\"\n\nThink about it for a moment. If you ask the truth-teller, they will tell you what the liar would say, which would be the wrong door. If you ask the liar, they will lie about what the truth-teller would say, which means they will also point to the wrong door. So, regardless of the answer, you can safely assume the opposite door is the one to freedom.\n\nTherefore, you only need to ask one question to figure out which door leads to freedom.\n\n{\"ANSWER\": \"C\"}",
+        "score": ""
+    },
+    "16": {
+        "category": "Puzzle",
+        "question": "You have 3 switches in front of you - A, B and C. You have 3 light bulbs in front of you in the same room - one red, one blue, one purple. They are LED and do not get warm when turned on. You want to know which switch turns on which light bulb. What is the best way to determine this?",
+        "human_answer": "A process of elimination. Test each switch independently and observe which light bulb turns on for each.",
+        "correct_answer": "Turing each switch on one at a time and observing the bulbs.",
+        "multiple_choice": [
+            "Turing two switches on for a while, turn one off, then touching the bulbs too see which is warm and which one is one.",
+            "You must walk into another room to observe the bulbs.",
+            "Turing all of the switches on at once and observing the bulbs.",
+            "Turing each switch on one at a time and observing the bulbs."
+        ],
+        "multi_choice_question": "QUESTION\nYou have 3 switches in front of you - A, B and C. You have 3 light bulbs in front of you in the same room - one red, one blue, one purple. They are LED and do not get warm when turned on. You want to know which switch turns on which light bulb. What is the best way to determine this?\n\nANSWERS\nA. Turing two switches on for a while, turn one off, then touching the bulbs too see which is warm and which one is one.\nB. You must walk into another room to observe the bulbs.\nC. Turing all of the switches on at once and observing the bulbs.\nD. Turing each switch on one at a time and observing the bulbs.\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"D\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To determine which switch corresponds to which light bulb efficiently, we need to consider the constraints and the properties of the bulbs. Given that the bulbs are LED and do not get warm when turned on, option A is immediately eliminated because it relies on the bulbs becoming warm, which contradicts the properties of LED bulbs mentioned.\n\nOption C, turning all of the switches on at once and observing the bulbs, would indeed turn on all the bulbs, but it wouldn't provide any information on which switch controls which bulb, as all switches would be in the same state (on) and all bulbs would be on, making it impossible to determine the individual correspondences.\n\nOption B mentions walking into another room to observe the bulbs, but this action alone does not provide a method for determining which switch controls which bulb. It seems to hint at a part of a solution but lacks the necessary steps to actually solve the problem.\n\nOption D, turning each switch on one at a time and observing the bulbs, is the most straightforward and effective method. By changing the state of one switch at a time and observing the change in the bulbs, you can directly determine which switch corresponds to which bulb. This method ensures that the effect of each switch is isolated and observed independently, providing a clear and direct correlation between each switch and its corresponding bulb.\n\n{\"ANSWER\": \"D\"}",
+        "score": ""
+    },
+    "17": {
+        "category": "Puzzle",
+        "question": "The Poisoned Wine - A king has 1000 sweet bottles of wine, and one contains a very bitter poison. The poison takes effect exactly 24 hours after consumption. The king needs to find the poisoned bottle in 24 hours for an event. He has 10 prisoners to test the wine. What is the fastest way for him to identify the poisoned bottle?",
+        "human_answer": "Divide the 1000 bottles of wine amongst the 10 prisoners - each receiving 100 bottles. Ask the prisoners to note which bottle tastes very bitter, this is the poisoned one.",
+        "correct_answer": "Divide the bottles of wine amongst the prisoners and get them to note which one tastes bitter.",
+        "multiple_choice": [
+            "Using a binary search strategy with the 10 prisoners, leveraging the concept of binary numbers to minimize the number of tests needed. The king will know results in 24 hours",
+            "Divide the bottles of wine amongst the prisoners and get them to take a sip and note which one dies in 24 hours.",
+            "Get all of the prisoners to sample each of the bottles of wine and see who dies in 24 hours.",
+            "Divide the bottles of wine amongst the prisoners and get them to note which one tastes bitter."
+        ],
+        "multi_choice_question": "QUESTION\nThe Poisoned Wine - A king has 1000 sweet bottles of wine, and one contains a very bitter poison. The poison takes effect exactly 24 hours after consumption. The king needs to find the poisoned bottle in 24 hours for an event. He has 10 prisoners to test the wine. What is the fastest way for him to identify the poisoned bottle?\n\nANSWERS\nA. Using a binary search strategy with the 10 prisoners, leveraging the concept of binary numbers to minimize the number of tests needed. The king will know results in 24 hours\nB. Divide the bottles of wine amongst the prisoners and get them to take a sip and note which one dies in 24 hours.\nC. Get all of the prisoners to sample each of the bottles of wine and see who dies in 24 hours.\nD. Divide the bottles of wine amongst the prisoners and get them to note which one tastes bitter.\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"D\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To solve this problem efficiently, we need to minimize the number of tests (or in this case, the number of prisoners needed to taste the wine) while maximizing the information gained from each test. The goal is to identify the poisoned bottle within 24 hours.\n\nLet's analyze the options:\n\n- **Option A** suggests using a binary search strategy with the 10 prisoners. This approach involves leveraging the concept of binary numbers to minimize the number of tests needed. Each prisoner can represent a binary digit (0 or 1), and by having them drink from specific bottles based on a binary pattern, the king can narrow down the possible poisoned bottle to one in a very efficient manner. This method allows for the testing of a large number of bottles with a relatively small number of prisoners. Given that the king has 10 prisoners, he can test up to 2^10 = 1024 different combinations, which is more than enough for the 1000 bottles of wine. This method ensures that the king will know the results within 24 hours, as the poison takes effect exactly 24 hours after consumption.\n\n- **Option B** involves dividing the bottles of wine amongst the prisoners and getting them to take a sip to note which one dies in 24 hours. This approach is straightforward but not efficient for identifying the poisoned bottle with a large number of bottles and a limited number of prisoners. If the bottles are divided equally among the 10 prisoners, each would have to drink from 100 bottles, which does not help in identifying the specific poisoned bottle.\n\n- **Option C** suggests getting all of the prisoners to sample each of the bottles of wine and seeing who dies in 24 hours. This approach is impractical and inhumane, as it would likely result in the death of all prisoners due to the sheer volume of poisoned wine they would consume.\n\n- **Option D** involves dividing the bottles of wine amongst the prisoners and getting them to note which one tastes bitter. This method is not viable because the poison is described as taking effect exactly 24 hours after consumption, with no mention of an immediate bitter taste that could be detected by the prisoners.\n\nGiven the analysis, the most efficient and humane way for the king to identify the poisoned bottle within the 24-hour time frame is to use a binary search strategy with the 10 prisoners, as described in **Option A**.\n\n{\"ANSWER\": \"A\"}",
+        "score": ""
+    },
+    "18": {
+        "category": "Linguistic",
+        "question": "Write a grammatically correct sentence without reusing any letter more than once.",
+        "human_answer": "Dogs bark with me.",
+        "correct_answer": "'Dogs bark with me.'",
+        "multiple_choice": [
+            "No such sentence is possible.",
+            "'The five boxers jog quick.'",
+            "'The quick brown fox jumps over the lazy dog.'",
+            "'Dogs bark with me.'"
+        ],
+        "multi_choice_question": "QUESTION\nWrite a grammatically correct sentence without reusing any letter more than once.\n\nANSWERS\nA. No such sentence is possible.\nB. 'The five boxers jog quick.'\nC. 'The quick brown fox jumps over the lazy dog.'\nD. 'Dogs bark with me.'\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"C\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To solve this, let's analyze each option given:\n\nA. No such sentence is possible.\n- This option suggests that it's impossible to construct a sentence without reusing any letter more than once. However, there are known examples that contradict this statement.\n\nB. 'The five boxers jog quick.'\n- This sentence is a good attempt but does not include all the letters of the alphabet, which is not a requirement stated in the question, but it does reuse some letters.\n\nC. 'The quick brown fox jumps over the lazy dog.'\n- This is a well-known pangram, a sentence that uses all the letters of the alphabet at least once. However, the question is about not reusing any letter more than once, which this sentence does not comply with because it repeats several letters.\n\nD. 'Dogs bark with me.'\n- This sentence, like option B, does not use all the letters of the alphabet and also reuses some letters.\n\nGiven the specific requirement of the question, none of the provided sentences meet the criteria of not reusing any letter more than once. The question does not explicitly require the use of all the letters of the alphabet, but none of the sentences provided avoid the reuse of letters entirely.\n\nTherefore, the correct answer, based on the specific phrasing of the question, is that none of the provided sentences meet the criteria as stated. However, the option that directly addresses the impossibility within the given choices is:\n\n{\"ANSWER\": \"A\"}",
+        "score": ""
+    },
+    "19": {
+        "category": "Spatial",
+        "question": "An arrow points up. We rotate it 90 degrees to the left, mirror it along its flat end, and rotate it another 90 degrees to the left. Which direction is it pointing?",
+        "human_answer": "Up",
+        "correct_answer": "Up",
+        "multiple_choice": [
+            "Down",
+            "Up",
+            "Right",
+            "Left"
+        ],
+        "multi_choice_question": "QUESTION\nAn arrow points up. We rotate it 90 degrees to the left, mirror it along its flat end, and rotate it another 90 degrees to the left. Which direction is it pointing?\n\nANSWERS\nA. Down\nB. Up\nC. Right\nD. Left\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"C\"}\n",
+        "correct_letter": "B",
+        "model_answer": "To solve this, let's break down the steps:\n\n1. **Initial Position**: The arrow points up.\n\n2. **First Action - Rotate 90 degrees to the left**: After this rotation, the arrow will point to the left.\n\n3. **Second Action - Mirror along its flat end**: Since the arrow now points to the left, mirroring it along its flat end (which is the tip of the arrow in this context) will make it point to the right.\n\n4. **Third Action - Rotate another 90 degrees to the left**: Rotating the arrow, which now points to the right, 90 degrees to the left will make it point up.\n\nSo, after all these operations, the arrow ends up pointing in the same direction it started with, which is up.\n\n{\"ANSWER\": \"B\"}",
+        "score": ""
+    },
+    "20": {
+        "category": "Linguistic",
+        "question": "Write a sentence where every word starts with the letter A.",
+        "human_answer": "Alice ate an apple after an argument.",
+        "correct_answer": "Alice ate an apple after an argument.",
+        "multiple_choice": [
+            "Apples and apricots are always an amazing afternoon snack.",
+            "The aardvark adored and amazing, appetizing apron.",
+            "Alice ate an apple after an argument.",
+            "Alligators always avoid angry ants aggressively attacking two apples."
+        ],
+        "multi_choice_question": "QUESTION\nWrite a sentence where every word starts with the letter A.\n\nANSWERS\nA. Apples and apricots are always an amazing afternoon snack.\nB. The aardvark adored and amazing, appetizing apron.\nC. Alice ate an apple after an argument.\nD. Alligators always avoid angry ants aggressively attacking two apples.\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"A\"}\n",
+        "correct_letter": "C",
+        "model_answer": "To answer this question, we need to evaluate each sentence to ensure that every word starts with the letter A.\n\nOption A: \"Apples and apricots are always an amazing afternoon snack.\" This sentence meets the criteria because every word starts with the letter A.\n\nOption B: \"The aardvark adored and amazing, appetizing apron.\" This sentence does not meet the criteria because the word \"The\" starts with the letter T, not A.\n\nOption C: \"Alice ate an apple after an argument.\" This sentence does not meet the criteria because the word \"after\" starts with the letter \"after\", not A, although the first word of the sentence \"an\" and \"an\" both start with A, \"after\" does not.\n\nOption D: \"Alligators always avoid angry ants aggressively attacking two apples.\" This sentence does not meet the criteria because the word \"two\" starts with the letter T, not A.\n\nBased on the analysis, the correct answer is:\n\n{\"ANSWER\": \"A\"}",
+        "score": ""
+    },
+    "21": {
+        "category": "Relational",
+        "question": "Sally (a girl) has 3 brothers. Each brother has 2 sisters. How many sisters does Sally have?",
+        "human_answer": "One, as each brother has 2 sisters and Sally is one of them.",
+        "correct_answer": "One",
+        "multiple_choice": [
+            "Two",
+            "One",
+            "Three",
+            "Hard to know"
+        ],
+        "multi_choice_question": "QUESTION\nSally (a girl) has 3 brothers. Each brother has 2 sisters. How many sisters does Sally have?\n\nANSWERS\nA. Two\nB. One\nC. Three\nD. Hard to know\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"A\"}\n",
+        "correct_letter": "B",
+        "model_answer": "To solve this, let's break down the information given:\n\n1. Sally has 3 brothers.\n2. Each brother has 2 sisters.\n\nSince each brother has 2 sisters and Sally is one of them, the question is asking how many sisters Sally has, not how many sisters her brothers have. Given Sally is one of the sisters her brothers have, and there's no mention of any other sisters besides Sally and the need for another sister to fulfill the \"2 sisters\" condition for each brother, it implies Sally has only one sister. This is because for Sally's brothers to each have 2 sisters, Sally must be counted as one of those sisters, leaving the requirement for just one more sister to fulfill the condition stated.\n\nTherefore, Sally has one sister.\n\n{\"ANSWER\": \"B\"}",
+        "score": ""
+    },
+    "22": {
+        "category": "Spatial",
+        "question": "I'm in London and facing west, what direction is Edinburgh?",
+        "human_answer": "Right, as Edinburgh is north of London.",
+        "correct_answer": "Right",
+        "multiple_choice": [
+            "Behind you",
+            "Left",
+            "Straight ahead",
+            "Right"
+        ],
+        "multi_choice_question": "QUESTION\nI'm in London and facing west, what direction is Edinburgh?\n\nANSWERS\nA. Behind you\nB. Left\nC. Straight ahead\nD. Right\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"B\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To determine the direction of Edinburgh from London, we need to consider the geographical locations of both cities. Edinburgh is located in Scotland, which is north of London. Since you are facing west in London, we need to think about the relative positions of these cities on a map.\n\nImagine a map of the UK: if you are in London and facing west, you would be looking towards Wales or the Atlantic Ocean. Edinburgh, being in Scotland, would be to your right if you were facing north, but since you are facing west, it means Edinburgh is actually to your right and a bit behind you, but more accurately, it's to your right in a general northerly direction.\n\nHowever, given the options provided and simplifying the geographical relationship for the purpose of this question, the most accurate direction given the options is \"Right\" because it's the closest to the actual direction you would need to turn to face Edinburgh from London if you were initially facing west.\n\n{\"ANSWER\": \"D\"}",
+        "score": ""
+    },
+    "23": {
+        "category": "Counting",
+        "question": "Count the number of occurrences of the letter 'L' in the word 'LOLLAPALOOZA'.",
+        "human_answer": "Four",
+        "correct_answer": "Four",
+        "multiple_choice": [
+            "Five",
+            "Three",
+            "Four",
+            "Two"
+        ],
+        "multi_choice_question": "QUESTION\nCount the number of occurrences of the letter 'L' in the word 'LOLLAPALOOZA'.\n\nANSWERS\nA. Five\nB. Three\nC. Four\nD. Two\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"B\"}\n",
+        "correct_letter": "C",
+        "model_answer": "To count the number of occurrences of the letter 'L' in the word 'LOLLAPALOOZA', we can simply iterate through each character in the word and count the 'L's.\n\nStarting from the beginning of the word: L-O-L-L-A-P-A-L-O-O-Z-A\n\n1. The first character is 'L', so we count 1.\n2. The second character is 'O', so the count remains 1.\n3. The third character is 'L', so we count 2.\n4. The fourth character is 'L', so we count 3.\n5. The fifth character is 'A', so the count remains 3.\n6. The sixth character is 'P', so the count remains 3.\n7. The seventh character is 'A', so the count remains 3.\n8. The eighth character is 'L', so we count 4.\n9. The ninth character is 'O', so the count remains 4.\n10. The tenth character is 'O', so the count remains 4.\n11. The eleventh character is 'Z', so the count remains 4.\n12. The twelfth character is 'A', so the count remains 4.\n\nTherefore, the total count of the letter 'L' in the word 'LOLLAPALOOZA' is 4.\n\n{\"ANSWER\": \"C\"}",
+        "score": ""
+    },
+    "24": {
+        "category": "Puzzle",
+        "question": "How many pairs of twins do you need in a room for there to be at least a 50% chance that two people have the same birthday?",
+        "human_answer": "1 pair, as twins share the same birthday.",
+        "correct_answer": "1 pair",
+        "multiple_choice": [
+            "46 pairs",
+            "12 pairs",
+            "1 pair",
+            "23 pairs"
+        ],
+        "multi_choice_question": "QUESTION\nHow many pairs of twins do you need in a room for there to be at least a 50% chance that two people have the same birthday?\n\nANSWERS\nA. 46 pairs\nB. 12 pairs\nC. 1 pair\nD. 23 pairs\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"C\"}\n",
+        "correct_letter": "C",
+        "model_answer": "To solve this problem, we need to consider the probability of at least two people sharing the same birthday in a room. The number of pairs of twins is somewhat of a red herring because what we're really interested in is the total number of people and how their birthdays match up.\n\nThe classic \"birthday problem\" tells us that in a room of randomly selected people, we need surprisingly few people to reach a 50% chance that at least two people share the same birthday. The key number here is 23 people, not pairs of twins. With 23 people in the room, the probability that at least two people share the same birthday is greater than 50%.\n\nHowever, the question asks for pairs of twins. Since each pair of twins counts as two people, we need to figure out how many pairs of twins would give us at least 23 people. The answer is straightforward: since each pair is two people, we divide the total number of people needed by 2 to find the number of pairs.\n\nTherefore, to have at least a 50% chance that two people have the same birthday, we need 23 people, which translates to 11.5 pairs of twins. Since we can't have half a pair of twins, we round up to the nearest whole number to ensure we meet the condition. However, the question does not explicitly state we should round, and among the given options, the closest understanding to the traditional birthday problem solution would be aiming for around that number, but given the choices, the closest logic without rounding would suggest aiming for a number that ensures we are considering the requirement for at least 23 individuals to be in the room for the 50% chance of shared birthdays.\n\nGiven the options provided and sticking strictly to the logic of needing at least 23 people in the room and translating that directly into pairs without implying additional rounding that isn't explicitly mentioned in the question:\n\n{\"ANSWER\": \"D\"}",
+        "score": ""
+    },
+    "25": {
+        "category": "Puzzle",
+        "question": "A partially full hotel has an infinite number of fully furnished rooms. How does it accommodate one more guest?",
+        "human_answer": "By putting the guest in an empty room, as the hotel is only partially full.",
+        "correct_answer": "By putting the guest in an empty room.",
+        "multiple_choice": [
+            "You ask each current guest to move to the next room.",
+            "You cannot accommodate one more guest.",
+            "You ask each current guest to move to the room number n*2.",
+            "By putting the guest in an empty room."
+        ],
+        "multi_choice_question": "QUESTION\nA partially full hotel has an infinite number of fully furnished rooms. How does it accommodate one more guest?\n\nANSWERS\nA. You ask each current guest to move to the next room.\nB. You cannot accommodate one more guest.\nC. You ask each current guest to move to the room number n*2.\nD. By putting the guest in an empty room.\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"D\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To accommodate one more guest in a partially full hotel with an infinite number of fully furnished rooms, we must consider the nature of infinity and how it applies to the scenario. The key insight is that even if the hotel is partially full, with an infinite number of rooms, there is always a way to accommodate more guests without having to turn anyone away.\n\nOption A, asking each current guest to move to the next room, is a practical approach for a finite number of rooms but doesn't leverage the infinite nature of the rooms in the best way. It implies a starting point and a sequential arrangement that might not be necessary with an infinite number of rooms.\n\nOption B, stating that you cannot accommodate one more guest, is incorrect because it fails to understand the concept of infinity. With an infinite number of rooms, there is always room for one more, by definition.\n\nOption C, asking each current guest to move to the room number n*2, is a clever approach that directly leverages the concept of infinity. By moving each guest to a room that is twice their current room number, you immediately free up an infinite number of odd-numbered rooms, any one of which can accommodate the new guest. This method elegantly demonstrates the flexibility and capacity of an infinite system.\n\nOption D, putting the guest in an empty room, assumes that there is an empty room available without providing a method for how this room becomes available. While it's true that in an infinite hotel, there should always be an \"empty\" room in the sense that there are an infinite number of rooms, this option doesn't address the scenario where all rooms are occupied and doesn't offer a solution for accommodating the new guest in that context.\n\nGiven the explanations, the most comprehensive and mathematically sound solution is to ask each current guest to move to the room number n*2, as it not only accommodates the new guest but also does so in a way that illustrates the unique properties of infinity.\n\n{\"ANSWER\": \"C\"}",
+        "score": ""
+    },
+    "26": {
+        "category": "Puzzle",
+        "question": "A runaway trolley is heading down the tracks away from five people upwards of the track. You are near a lever that can switch the trolley to another track? How might pulling the lever impact the five people's lives?",
+        "human_answer": "It doesn't impact anyones lives, as the trolley is heading down the tracks in the opposite direction to the five people up the track.",
+        "correct_answer": "It doesn't impact their lives.",
+        "multiple_choice": [
+            "It doesn't impact their lives.",
+            "Pulling the lever will take their lives.",
+            "This is an ethical dilemma.",
+            "Pulling the lever will save their lives."
+        ],
+        "multi_choice_question": "QUESTION\nA runaway trolley is heading down the tracks away from five people upwards of the track. You are near a lever that can switch the trolley to another track? How might pulling the lever impact the five people's lives?\n\nANSWERS\nA. It doesn't impact their lives.\nB. Pulling the lever will take their lives.\nC. This is an ethical dilemma.\nD. Pulling the lever will save their lives.\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"A\"}\n",
+        "correct_letter": "A",
+        "model_answer": "To answer this question, let's analyze the situation step by step:\n\n1. **Initial Situation**: A runaway trolley is heading down the tracks towards a group of five people who are positioned on the tracks and cannot move. If the trolley continues on its current path, it will hit and kill these five people.\n\n2. **Action Option**: You are near a lever that controls a switch that can divert the trolley onto a different track. \n\n3. **Consequence of Action**: If you pull the lever, the trolley will be diverted onto the other track. The question does not specify that there is anyone on the other track, so we will proceed with the assumption that diverting the trolley will not directly cause harm to anyone else.\n\n4. **Impact on the Five People**: By diverting the trolley onto a different track, you prevent it from hitting the five people who are unable to move from the original track. This action directly saves their lives.\n\nGiven this analysis, the correct answer is that pulling the lever will save the lives of the five people.\n\n{\"ANSWER\": \"D\"}",
+        "score": ""
+    },
+    "27": {
+        "category": "Puzzle",
+        "question": "How do you efficiently measure exactly 4 gallons of water with only a 3-gallon, 5-gallon, 4-gallon, and 2-gallon jug?",
+        "human_answer": "Fill up the 4-gallon jug",
+        "correct_answer": "Another option not stated.",
+        "multiple_choice": [
+            "Filling the 5-gallon jug and pouring it into the 4-gallon jug.",
+            "Filling the 2-gallon jug, twice.",
+            "Filling the 5-gallon jug and pouring it into the 3-gallon jug, twice.",
+            "Another option not stated."
+        ],
+        "multi_choice_question": "QUESTION\nHow do you efficiently measure exactly 4 gallons of water with only a 3-gallon, 5-gallon, 4-gallon, and 2-gallon jug?\n\nANSWERS\nA. Filling the 5-gallon jug and pouring it into the 4-gallon jug.\nB. Filling the 2-gallon jug, twice.\nC. Filling the 5-gallon jug and pouring it into the 3-gallon jug, twice.\nD. Another option not stated.\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"D\"}\n",
+        "correct_letter": "D",
+        "model_answer": "To measure exactly 4 gallons of water efficiently with the given jugs, we should consider the most straightforward method that minimizes the number of steps and does not waste water. Let's analyze the options:\n\nA. Filling the 5-gallon jug and pouring it into the 4-gallon jug: This method directly gives you 4 gallons in the 4-gallon jug, with 1 gallon left over in the 5-gallon jug. It's a simple, one-step process that achieves the goal without wasting water.\n\nB. Filling the 2-gallon jug, twice: This would give you 4 gallons, but it requires two steps and does not utilize the larger jugs efficiently.\n\nC. Filling the 5-gallon jug and pouring it into the 3-gallon jug, twice: This method would not give you exactly 4 gallons without additional steps to adjust the amount, making it less efficient.\n\nD. Another option not stated: While there might be other ways to achieve the goal, option A is the most straightforward and efficient method given the jugs available.\n\nTherefore, the most efficient method to measure exactly 4 gallons of water is by filling the 5-gallon jug and pouring it into the 4-gallon jug.\n\n{\"ANSWER\": \"A\"}",
+        "score": ""
+    },
+    "28": {
+        "category": "Popular science",
+        "question": "A 2kg tree grows in a planted pot with 10kg of soil. When the tree grows to 3kg, how much soil is left?",
+        "human_answer": "There is still 10kg of soil. Trees are primarily composed of carbon dioxide and water, not soil.",
+        "correct_answer": "10kg",
+        "multiple_choice": [
+            "11kg",
+            "9kg",
+            "10kg",
+            "8kg"
+        ],
+        "multi_choice_question": "QUESTION\nA 2kg tree grows in a planted pot with 10kg of soil. When the tree grows to 3kg, how much soil is left?\n\nANSWERS\nA. 11kg\nB. 9kg\nC. 10kg\nD. 8kg\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"A\"}\n",
+        "correct_letter": "C",
+        "model_answer": "To solve this, let's analyze the situation step by step:\n\n1. Initially, we have a 2kg tree and 10kg of soil.\n2. The tree grows to 3kg. This means it has gained 1kg (since 3kg - 2kg = 1kg).\n3. The question implies that the growth of the tree (the additional 1kg) comes from the soil. Therefore, the soil loses 1kg as the tree grows.\n4. Initially, the soil was 10kg, so after losing 1kg, we have 10kg - 1kg = 9kg of soil left.\n\nTherefore, after the tree grows to 3kg, there is 9kg of soil left.\n\n{\"ANSWER\": \"B\"}",
+        "score": ""
+    },
+    "29": {
+        "category": "Relational",
+        "question": "A man steps over a 0.5m hurdle. What is the minimum height he could have jumped?",
+        "human_answer": "0m, he didn't jump at all, he stepped over the hurdle.",
+        "correct_answer": "0m",
+        "multiple_choice": [
+            "0m",
+            "Between 0.1m and 0.5m",
+            "Slightly higher than 0.5m",
+            "0.5m"
+        ],
+        "multi_choice_question": "QUESTION\nA man steps over a 0.5m hurdle. What is the minimum height he could have jumped?\n\nANSWERS\nA. 0m\nB. Between 0.1m and 0.5m\nC. Slightly higher than 0.5m\nD. 0.5m\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"B\"}\n",
+        "correct_letter": "A",
+        "model_answer": "To determine the minimum height the man could have jumped, we need to consider the mechanics of the action. When the man steps over the hurdle, he doesn't necessarily need to jump as high as the hurdle to clear it. Instead, he can lift one leg over the hurdle while keeping the other foot on the ground, or he can slightly jump to clear it more comfortably. The minimum requirement is that he must be able to lift his foot high enough to clear the hurdle, but this does not mean his entire body must reach the same height as the hurdle.\n\nGiven this understanding, the man doesn't need to jump his full body height to the level of the hurdle (0.5m) to clear it. He can manage to step over it by lifting his leg to that height without necessarily elevating his whole body to that level. However, the question asks for the minimum height he could have \"jumped,\" which implies some level of elevation of his body to facilitate the action, even if it's not a full jump.\n\nTherefore, the minimum height he could have jumped would be slightly higher than 0m (since he needs to elevate at least part of his body) but not necessarily as high as 0.5m (since he doesn't need to fully jump over the hurdle with his entire body). The most accurate description of this requirement is \"slightly higher than 0.5m\" is not correct because it implies more effort than necessary for the minimum, and \"0.5m\" is the height of the hurdle, not the minimum body elevation required. \"0m\" is incorrect because some elevation is needed, even if minimal.\n\nThus, the best answer is \"Between 0.1m and 0.5m,\" as it captures the range of possible minimal elevations that could be considered a jump without overstating the requirement.\n\n{\"ANSWER\": \"B\"}",
+        "score": ""
+    },
+    "30": {
+        "category": "Popular science",
+        "question": "I walk to my friend's house, averaging 3mph. How fast would I have to run back to double my average speed for the entire trip?",
+        "human_answer": "Instantaneously fast, it is mathematically impossible.",
+        "correct_answer": "Infinitely fast",
+        "multiple_choice": [
+            "9mph",
+            "Infinitely fast",
+            "12mph",
+            "6mph"
+        ],
+        "multi_choice_question": "QUESTION\nI walk to my friend's house, averaging 3mph. How fast would I have to run back to double my average speed for the entire trip?\n\nANSWERS\nA. 9mph\nB. Infinitely fast\nC. 12mph\nD. 6mph\n\nProvide an explanation for your thinking and then select a single choice from ANSWERS that answer the QUESTION. Return in JSON format, for example:\n{\"ANSWER\": \"C\"}\n",
+        "correct_letter": "B",
+        "model_answer": "To solve this problem, let's break it down step by step.\n\n1. **Understanding the goal**: The goal is to find the speed at which you must return from your friend's house to double your average speed for the entire trip. The trip consists of two equal parts: going to your friend's house and coming back.\n\n2. **Initial speed and average speed**: You walk to your friend's house at 3mph. To double your average speed for the entire trip, your average speed needs to be 6mph (since 3mph * 2 = 6mph).\n\n3. **Calculating the return speed**: Let's denote the speed at which you run back as \\(R\\) mph. The average speed for the entire trip is calculated as the total distance divided by the total time. Since the distance to and from your friend's house is the same, we can denote this distance as \\(D\\).\n\n   - The time taken to walk to your friend's house is \\(D / 3\\).\n   - The time taken to run back would be \\(D / R\\).\n\n   The total time for the round trip is \\(D / 3 + D / R\\).\n\n4. **Setting up the equation for average speed**: The average speed for the entire trip is the total distance traveled divided by the total time taken. Since you're traveling a total distance of \\(2D\\) (to and from), and you want your average speed to be 6mph, the equation becomes:\n\n   \\[\n   \\frac{2D}{\\frac{D}{3} + \\frac{D}{R}} = 6\n   \\]\n\n   Simplifying this equation:\n\n   \\[\n   \\frac{2}{\\frac{1}{3} + \\frac{1}{R}} = 6\n   \\]\n\n   \\[\n   \\frac{1}{3} + \\frac{1}{R} = \\frac{2}{6} = \\frac{1}{3}\n   \\]\n\n   From this, it becomes apparent that to satisfy the equation, \\(1/R\\) must equal zero for the left side to equal \\(1/3\\), which means \\(R\\) must be infinitely large.\n\nTherefore, the correct answer is:\n\n{\"ANSWER\": \"B\"}",
+        "score": ""
+    }
+}

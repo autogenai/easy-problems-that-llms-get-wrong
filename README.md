@@ -6,11 +6,11 @@ ArXiv Paper: [https://arxiv.org/abs/2405.19616]()
 
 ### Benchmark Results
 
-[2024-06-21-Multi-Benchmark (temp=0)](https://github.com/autogenai/easy-problems-that-llms-get-wrong/tree/e5d6baa16e221205ef90f0833e9ca3c30b08f713/2024-06-21-Multi-Benchmark%20(temp%3D0))
+[2024-07-20-Multi-Benchmark ](https://github.com/autogenai/easy-problems-that-llms-get-wrong/tree/e5d6baa16e221205ef90f0833e9ca3c30b08f713/2024-07-20-Multi-Benchmark)
 
-![1719913956971](image/README/1719913956971.png)
+![1721933998509](image/README/1721933998509.png)
 
-### Hotz-Reflection
+**Hotz-Reflection**
 
 [Description - LinkedIn Post](https://www.linkedin.com/posts/heikohotz_%3F%3F%3F%3F%3F%3F%3F-%3F%3F%3F%3F%3F%3F%3F-%3F%3F%3F%3F-%3F-activity-7209092819909517312-He-r?utm_source=share)
 

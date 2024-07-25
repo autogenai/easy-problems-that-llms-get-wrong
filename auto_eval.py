@@ -1,8 +1,7 @@
 #%%
+from llm_service import message_parse, runner, litellm_service, custom_llm_service
 from utils import message_parse, model_clean
 from IPython.display import display
-from collections.abc import Callable
-from llm_service import runner
 import pandas as pd
 import numpy as np
 import json
@@ -109,19 +108,19 @@ def extract_all_scores(all_llm_eval_responses:dict) -> dict[list]:
 
 
 async def get_llm_eval_responses(
-        llm_service:Callable, 
         all_llm_eval_messages:dict, 
-        model:str, 
+        model_info:str, 
         hyperparams:dict,
         validation_func:lambda x: True,
     ) -> dict[list]:
     all_llm_eval_responses = {}
     for _model, eval_messages in all_llm_eval_messages.items():
         print(f"Running {_model} evaluation...")
+        llm_service_func = litellm_service() if model_info[1] == 'llmlite' else custom_llm_service()
         eval_responses = await runner(
-            llm_service.completion,
+            llm_service_func.completion,
             messages=eval_messages,
-            model=model,
+            model=model_info[0],
             validation_func=validation_func,
             **hyperparams,
         )

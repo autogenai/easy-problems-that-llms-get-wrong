@@ -1,11 +1,10 @@
 # %%
+from llm_service import message_parse, runner, litellm_service, custom_llm_service
 from IPython.display import display
-from collections.abc import Callable
-from llm_service import message_parse
-from llm_service import runner
 import pandas as pd
 import numpy as np
 import copy
+import time
 import os
 
 
@@ -33,7 +32,6 @@ def save_answers_as_json(answers:list, benchmark_questions:dict, model:str, answ
 
 
 async def get_llm_answers(
-    llm_service:Callable, 
     benchmark_questions:dict[list[dict]], 
     models:list, 
     hyperparams:dict, 
@@ -43,12 +41,13 @@ async def get_llm_answers(
 ) -> dict[pd.DataFrame]:
     question_str = 'question' if not multiple_choice else 'multi_choice_question'
     all_llm_answers = {}
-    for model in models:
+    for model, llm_service in models:
         print(f"Running  Benchmark for {model}")
         messages = [[{"role": "user", "content": q[question_str]}] 
                     for q in benchmark_questions[model_clean(model)]]
+        llm_service_func = litellm_service() if llm_service == 'litellm' else custom_llm_service()
         answers = await runner(
-            llm_service.completion,
+            llm_service_func.completion,
             messages=messages,
             model=model,
             validation_func=validation_func,
@@ -123,12 +122,12 @@ def calculate_llm_stats(all_llm_answers:dict, bootstrap_n=10000) -> dict:
     return all_llm_stats
 
 
-def get_llm_stats(all_llm_answers:dict, stats_save_path:str, bootstrap_n=10000) -> pd.DataFrame:
+def get_llm_stats(all_llm_answers:dict, stats_save_path:str, file_suffix='', bootstrap_n=10000) -> pd.DataFrame:
     all_llm_stats = calculate_llm_stats(all_llm_answers, bootstrap_n)
     stats_df = pd.DataFrame(all_llm_stats).transpose().sort_values('mean_score', ascending=False)
     stats_df.index.name = 'model'
     os.makedirs(stats_save_path, exist_ok=True)
-    stats_df.to_csv(f'./{stats_save_path}/final_stats.csv')
+    stats_df.to_csv(f'./{stats_save_path}/final_stats{file_suffix}.csv')
     return stats_df
 
 # %%

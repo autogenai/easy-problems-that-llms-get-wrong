@@ -1,6 +1,8 @@
 # %%
 import os
+import json
 import time
+import boto3
 import asyncio
 import litellm
 import requests
@@ -16,6 +18,8 @@ os.environ["ANTHROPIC_API_KEY"] = config("ANTHROPIC_API_KEY")
 os.environ["AWS_ACCESS_KEY_ID"] = config("AWS_ACCESS_KEY_ID")
 os.environ["AWS_SECRET_ACCESS_KEY"] = config("AWS_SECRET_ACCESS_KEY")
 os.environ["AWS_REGION_NAME"] = "us-west-2"
+os.environ["AZURE_AI_KEYS"] = config("AZURE_AI_KEYS")
+
 litellm.vertex_project = config("VERTEX_PROJECT")
 litellm.vertex_location = config("VERTEX_LOCATION")
 
@@ -54,6 +58,10 @@ def message_parse(response:dict, model:str):
         messages = openai_message_parse(response)
     elif model in ['gpt-4-turbo-preview', 'gpt-4-turbo', 'gpt-4o']:
         messages = openai_message_parse(response)
+    elif 'azure' in model or 'mistral' in model or 'mixtral' in model:
+        messages = openai_message_parse(response)
+    elif 'llama' in model:
+        messages = response
     elif 'claude' in model:
         messages = anthropic_message_parse(response)
     else:
@@ -72,9 +80,9 @@ def litellm_service():
 
 # messages = [{ "content": "Write a sentence where every word starts with the letter A.","role": "user"}]
 
-# models = ["gpt-4-turbo-preview", "meta.llama3-70b-instruct-v1:0", "command-r", "mistral/mistral-large-latest", "mistral/open-mixtral-8x22b", "claude-3-opus-20240229", "claude-3-5-sonnet-20240620", "vertex_ai/gemini-1.5-pro", "vertex_ai/gemini-1.0-pro"]
+# models = ["gpt-4-turbo-preview", "meta.llama3-70b-instruct-v1:0", "command-r-plus", "mistral/mistral-large-latest", "mistral/open-mixtral-8x22b", "claude-3-opus-20240229", "claude-3-5-sonnet-20240620", "vertex_ai/gemini-1.5-pro", "vertex_ai/gemini-1.0-pro"]
 
-# model = "claude-3-5-sonnet-20240620"
+# model = "command-r-plus"
 
 # response = litellm_query.completion(model=model, messages=messages, num_retries=2)
 # print(response)
@@ -87,7 +95,9 @@ class custom_llm_service:
     def __init__(self):
         pass
 
-    def openai_query(self, messages:list, model="gpt-4-turbo-preview", max_tokens=1000, temperature=0, n=1):
+
+    def openai_query(self, messages:list, model="gpt-4-turbo-preview", 
+                     max_tokens=1000, temperature=0, n=1):
         """
         "messages": [
             {
@@ -113,7 +123,8 @@ class custom_llm_service:
         return response.json()
     
 
-    def anthropic_query(self, messages:list, model="claude-3-5-sonnet-20240620", max_tokens=1000, temperature=0, n=1):
+    def anthropic_query(self, messages:list, model="claude-3-5-sonnet-20240620", 
+                        max_tokens=1000, temperature=0, n=1):
         """
         "messages": [
             {
@@ -139,6 +150,89 @@ class custom_llm_service:
             },
         )
         return response.json()
+    
+
+    def bedrock_query(self, messages:list, model="meta.llama3-8b-instruct-v1:0", 
+                      max_tokens=2048, temperature=0, n=1):
+        # Initialize a session using your AWS credentials
+        session = boto3.Session(
+            aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
+            aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"],
+            region_name='us-west-2',
+        )
+
+        # Initialize the Bedrock client
+        bedrock_client = session.client("bedrock-runtime", region_name="us-west-2")
+
+        # Embed the prompt in Llama 3's instruction format.
+        formatted_prompt = f"""
+        <|begin_of_text|>
+        <|start_header_id|>user<|end_header_id|>
+        {messages[0]['content']}
+        <|eot_id|>
+        <|start_header_id|>assistant<|end_header_id|>
+        """
+
+        # Format the request payload using the model's native structure.
+        native_request = {
+            "prompt": formatted_prompt,
+            "max_gen_len": max_tokens,
+            "temperature": temperature,
+        }
+
+        # Convert the native request to JSON.
+        request = json.dumps(native_request)
+
+        try:
+            # Invoke the model with the request.
+            response = bedrock_client.invoke_model(modelId=model, body=request)
+            # Decode the response body.
+            model_response = json.loads(response["body"].read())
+
+            # Extract and print the response text.
+            response_text = model_response["generation"]
+            #print(response_text)
+            return response_text
+
+        except Exception as e:
+            print(f"ERROR: Can't invoke '{model}'. Reason: {e}")
+
+
+    def azure_query(self, messages:list, model="Meta-Llama-3-1-405B-Instruct-jjo.eastus.models.ai.azure.com",
+                    max_tokens=1000, temperature=0, n=1):
+        
+        azure_ai_keys = json.loads(os.environ["AZURE_AI_KEYS"] )
+        url = f'https://{model}/v1/chat/completions'
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': azure_ai_keys[model],
+        }
+        data = {
+            'messages': messages,
+            'max_tokens': max_tokens,
+            'temperature': temperature,
+        }
+
+        response = requests.post(url, headers=headers, json=data)
+
+        return response.json()
+    
+
+    def mistral_query(self, messages:list, model="mistral-large-latest", 
+                      max_tokens=1000, temperature=0, n=1):
+        payload = {
+            "model": model,
+            "messages": messages,
+            "temperature": temperature,
+            "max_tokens": max_tokens
+        }
+        headers = {
+            "Authorization": f"Bearer {os.environ['MISTRAL_API_KEY']}",
+            "Content-Type": "application/json"
+        }
+
+        response = requests.post("https://api.mistral.ai/v1/chat/completions", json=payload, headers=headers)
+        return response.json()
 
 
     def completion(self, messages: list, model="gpt-4-turbo-preview", num_retries=2, **kwargs):
@@ -147,23 +241,31 @@ class custom_llm_service:
             response = custom_llm_service.openai_query(self, messages=messages, model=model, **kwargs)
         elif 'claude' in model:
             response = custom_llm_service.anthropic_query(self, messages=messages, model=model, **kwargs)
+        elif 'azure' in model:
+            response = custom_llm_service.azure_query(self, messages=messages, model=model, **kwargs)
+        elif 'mistral' in model or 'mixtral' in model:
+            response = custom_llm_service.mistral_query(self, messages=messages, model=model, **kwargs)
+        elif 'llama' in model:
+            response = custom_llm_service.bedrock_query(self, messages=messages, model=model, **kwargs)
         else:
             raise ValueError(f"Model '{model}' not supported")
         return response
 
 
 #%%
-# ##Test Custom LLM Service
+##Test Custom LLM Service
+# model = "Meta-Llama-3-1-405B-Instruct-jjo.eastus.models.ai.azure.com"
 # custom_llm_service_obj = custom_llm_service()
 # response = custom_llm_service_obj.completion(
 #     messages=[{"role": "user","content": "What is the meaning of life?"}],
-#     model="claude-3-5-sonnet-20240620",
-#     max_tokens=4092,
+#     model=model,
+#     max_tokens=100,
 #     temperature=0,
 #     n=1,
 # )
 # print(response)
-# print(message_parse(response, "claude-3-5-sonnet-20240620"))
+# print('\n-----------\n')
+# print(message_parse(response, model))
 
 
 # %%
@@ -182,12 +284,17 @@ async def runner(func, messages:list, batch_size=1, validation_func=lambda x: Tr
         for _retry in range(1, 4):
             batch_messages = {i: message for i, message in messages_copy.items() 
                               if i in list(range(idx, idx + batch_size))}
-            _responses = await asyncio.gather(
-                *(
-                    run_in_executor(func, messages=_messages, **kwargs)
-                    for _messages in batch_messages.values()
+            try:
+                _responses = await asyncio.gather(
+                    *(
+                        run_in_executor(func, messages=_messages, **kwargs)
+                        for _messages in batch_messages.values()
+                    )
                 )
-            )
+            except Exception as e:
+                print(f"Error getting response: {e}. Retry #{_retry}")
+                time.sleep(30)
+                continue
             responses = dict(zip(batch_messages.keys(), _responses))
             for _idx, response in responses.items():
                 if validation_func(message_parse(response, kwargs['model'])):
@@ -199,7 +306,7 @@ async def runner(func, messages:list, batch_size=1, validation_func=lambda x: Tr
             if len(messages_copy) == 0:
                 break
             else:
-                time.sleep(5)
+                time.sleep(30)
 
     return all_responses
 

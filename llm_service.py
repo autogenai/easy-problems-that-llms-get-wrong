@@ -97,7 +97,7 @@ class custom_llm_service:
 
 
     def openai_query(self, messages:list, model="gpt-4-turbo-preview", 
-                     max_tokens=1000, temperature=0, n=1):
+                     max_tokens=1000, temperature=0, n=1, stream=False):
         """
         "messages": [
             {
@@ -118,13 +118,14 @@ class custom_llm_service:
                 "max_tokens": max_tokens,
                 "temperature": temperature,
                 "n": n,
+                "stream": stream,
             },
         )
         return response.json()
     
 
     def anthropic_query(self, messages:list, model="claude-3-5-sonnet-20240620", 
-                        max_tokens=1000, temperature=0, n=1):
+                        max_tokens=1000, temperature=0, n=1, stream=False):
         """
         "messages": [
             {
@@ -147,13 +148,14 @@ class custom_llm_service:
                 "messages": messages,
                 "max_tokens": max_tokens,
                 "temperature": temperature,
+                "stream": stream,
             },
         )
         return response.json()
     
 
     def bedrock_query(self, messages:list, model="meta.llama3-8b-instruct-v1:0", 
-                      max_tokens=2048, temperature=0, n=1):
+                      max_tokens=2048, temperature=0, n=1, stream=False):
         # Initialize a session using your AWS credentials
         session = boto3.Session(
             aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
@@ -178,6 +180,7 @@ class custom_llm_service:
             "prompt": formatted_prompt,
             "max_gen_len": max_tokens,
             "temperature": temperature,
+            "stream": stream,
         }
 
         # Convert the native request to JSON.
@@ -199,32 +202,38 @@ class custom_llm_service:
 
 
     def azure_query(self, messages:list, model="Meta-Llama-3-1-405B-Instruct-jjo.eastus.models.ai.azure.com",
-                    max_tokens=1000, temperature=0, n=1):
-        
+                    max_tokens=1000, temperature=0, n=1, stream=False):
+        ###
+        stream = False ###!!!!
+        ###
+
         azure_ai_keys = json.loads(os.environ["AZURE_AI_KEYS"] )
         url = f'https://{model}/v1/chat/completions'
         headers = {
             'Content-Type': 'application/json',
             'Authorization': azure_ai_keys[model],
         }
+        headers.update({'Accept': 'text/event-stream'}) if stream else None
+
         data = {
             'messages': messages,
             'max_tokens': max_tokens,
             'temperature': temperature,
+            'stream': stream,
         }
 
-        response = requests.post(url, headers=headers, json=data)
-
+        response = requests.post(url, headers=headers, json=data)  
         return response.json()
     
 
     def mistral_query(self, messages:list, model="mistral-large-latest", 
-                      max_tokens=1000, temperature=0, n=1):
+                      max_tokens=1000, temperature=0, n=1, stream=False):
         payload = {
             "model": model,
             "messages": messages,
             "temperature": temperature,
-            "max_tokens": max_tokens
+            "max_tokens": max_tokens,
+            "stream": stream,
         }
         headers = {
             "Authorization": f"Bearer {os.environ['MISTRAL_API_KEY']}",

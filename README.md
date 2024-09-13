@@ -6,9 +6,9 @@ ArXiv Paper: [https://arxiv.org/abs/2405.19616]()
 
 ### Benchmark Results
 
-[2024-07-20-Multi-Benchmark ](https://github.com/autogenai/easy-problems-that-llms-get-wrong/tree/e5d6baa16e221205ef90f0833e9ca3c30b08f713/2024-07-20-Multi-Benchmark)
+2024-09-13-Multi-Benchmark
 
-![1721933998509](image/README/1721933998509.png)
+![1726234655658](image/README/1726234655658.png)
 
 **Hotz-Reflection**
 

@@ -10,6 +10,7 @@ mapper = {
     'claude-3-5-sonnet-20240620': 'Claude 3.5 Sonnet',
     'gemini-1_5-pro': 'Gemini 1.5 Pro',
     'gemini-1_0-pro': 'Gemini 1.0 Pro',
+    'gemini-1_5-pro-exp-0801': 'Gemini 1.5 Pro Ex',
     'mistral-large-latest': 'Mistral Large 2',
     'open-mixtral-8x22b': 'Mistral 8x22B',
     'meta_llama3-70b-instruct-v1_0': 'Llama 3 70B',

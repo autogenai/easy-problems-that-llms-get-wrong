@@ -6,6 +6,7 @@ import boto3
 import asyncio
 import litellm
 import requests
+import subprocess
 from decouple import AutoConfig
 from concurrent.futures import ThreadPoolExecutor
 
@@ -19,9 +20,13 @@ os.environ["AWS_ACCESS_KEY_ID"] = config("AWS_ACCESS_KEY_ID")
 os.environ["AWS_SECRET_ACCESS_KEY"] = config("AWS_SECRET_ACCESS_KEY")
 os.environ["AWS_REGION_NAME"] = "us-west-2"
 os.environ["AZURE_AI_KEYS"] = config("AZURE_AI_KEYS")
+os.environ['VERTEX_PROJECT'] = config("VERTEX_PROJECT")
+os.environ['VERTEX_LOCATION'] = config("VERTEX_LOCATION")
+os.environ['GOOGLE_AI_STUDIO'] = config("GOOGLE_AI_STUDIO")
 
 litellm.vertex_project = config("VERTEX_PROJECT")
 litellm.vertex_location = config("VERTEX_LOCATION")
+litellm.set_verbose=True
 
 
 # %%
@@ -50,16 +55,32 @@ def anthropic_message_parse(response:dict):
         messages = messages[0]
     return messages
 
+def google_message_parse(response:dict|list):
+    try:
+        if isinstance(response, dict):
+            text_response = response['candidates'][0]['content']['parts'][0]['text']
+        else:
+            text_response = ''.join([line['candidates'][0]['content']['parts'][0]['text'] 
+                                    for line in response 
+                                    if 'candidates' in line and 'content' in line['candidates'][0]])
+        return text_response
+    except Exception as e:
+        if response in [{}, []]:
+            return "None"
+        else:
+            raise ValueError(f"Response does not contain the expected key 'candidates'. Error: {e}. Response: {response}")
 
 def message_parse(response:dict, model:str):
     if response == {}:
         return ""
     if str(response)[:17] == 'ModelResponse(id=':
         messages = openai_message_parse(response)
-    elif model in ['gpt-4-turbo-preview', 'gpt-4-turbo', 'gpt-4o']:
+    elif model in ['gpt-4-turbo-preview', 'gpt-4-turbo', 'gpt-4o', 'o1-preview']:
         messages = openai_message_parse(response)
     elif 'azure' in model or 'mistral' in model or 'mixtral' in model:
         messages = openai_message_parse(response)
+    elif 'gemini' in model:
+        messages = google_message_parse(response)
     elif 'llama' in model:
         messages = response
     elif 'claude' in model:
@@ -115,11 +136,12 @@ class custom_llm_service:
             json={
                 "model": model,
                 "messages": messages,
-                "max_tokens": max_tokens,
-                "temperature": temperature,
+                "max_completion_tokens": max_tokens,
+                "temperature": temperature if model not in ['o1-preview'] else 1,
                 "n": n,
                 "stream": stream,
             },
+            timeout=300,
         )
         return response.json()
     
@@ -225,6 +247,83 @@ class custom_llm_service:
         response = requests.post(url, headers=headers, json=data)  
         return response.json()
     
+    def google_vertex_query(self, messages:list, model="gemini-experimental", max_tokens=8192, temperature=0, n=1, stream=False):
+        # Define the request payload
+        """
+        "messages": [
+            {
+                "role": "user",
+                "content": "What is the meaning of life?"
+            },
+        ]
+        """
+        messages_google_format = [{"role": message['role'], "parts": [{"text": message['content']}]} for message in messages]
+        payload = {
+            "contents": messages_google_format,
+            "generationConfig": {
+                "maxOutputTokens": max_tokens,
+                "temperature": temperature,
+                "topP": 0.95,
+            },
+        }
+
+        # Project and API details
+        PROJECT_ID = config("VERTEX_PROJECT")
+        LOCATION_ID = config("VERTEX_LOCATION")
+        API_ENDPOINT = f'{config("VERTEX_LOCATION")}-aiplatform.googleapis.com'
+        MODEL_ID = model
+
+        # Construct the URL
+        url = f"https://{API_ENDPOINT}/v1/projects/{PROJECT_ID}/locations/{LOCATION_ID}/publishers/google/models/{MODEL_ID}:streamGenerateContent"
+
+        # Get the access token
+        def get_access_token():
+            token = subprocess.check_output("gcloud auth print-access-token", shell=True).decode().strip()
+            return token
+
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {get_access_token()}"
+        }
+
+        response = requests.post(url, headers=headers, data=json.dumps(payload))
+        return response.json()
+    
+
+    def google_ai_studio_query(self, messages:list, model="gemini-1.5-pro-exp-0801", 
+                               max_tokens=8192, temperature=0, n=1, stream=False):
+        """
+        "messages": [
+            {
+                "role": "user",
+                "content": "What is the meaning of life?"
+            },
+        ]
+        """
+        messages_google_format = [{"role": message['role'], "parts": [{"text": message['content']}]} for message in messages]
+
+        API_KEY = config("GOOGLE_AI_STUDIO")
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={API_KEY}"
+
+        headers = {
+            'Content-Type': 'application/json',
+        }
+
+        data = {
+            "contents": messages_google_format,
+            "generationConfig": {
+                "temperature": temperature,
+                "maxOutputTokens": max_tokens,
+                "responseMimeType": "text/plain"
+            }
+        }
+
+        response = requests.post(url, headers=headers, json=data)
+        response_json = response.json()
+        if 'error' in response_json:
+            raise ValueError(f"Error in google ai studio response: {response_json}")
+        return response_json
+    
 
     def mistral_query(self, messages:list, model="mistral-large-latest", 
                       max_tokens=1000, temperature=0, n=1, stream=False):
@@ -246,10 +345,12 @@ class custom_llm_service:
 
     def completion(self, messages: list, model="gpt-4-turbo-preview", num_retries=2, **kwargs):
         # Add in num_retry logic to match the LiteLLM service
-        if model in ['gpt-4-turbo-preview', 'gpt-4-turbo', 'gpt-4o']:
+        if model in ['gpt-4-turbo-preview', 'gpt-4-turbo', 'gpt-4o', 'o1-preview']:
             response = custom_llm_service.openai_query(self, messages=messages, model=model, **kwargs)
         elif 'claude' in model:
             response = custom_llm_service.anthropic_query(self, messages=messages, model=model, **kwargs)
+        elif 'gemini' in model:
+            response = custom_llm_service.google_ai_studio_query(self, messages=messages, model=model, **kwargs)
         elif 'azure' in model:
             response = custom_llm_service.azure_query(self, messages=messages, model=model, **kwargs)
         elif 'mistral' in model or 'mixtral' in model:
@@ -261,12 +362,12 @@ class custom_llm_service:
         return response
 
 
-#%%
-##Test Custom LLM Service
-# model = "Meta-Llama-3-1-405B-Instruct-jjo.eastus.models.ai.azure.com"
+# #%%
+# ##Test Custom LLM Service
+# model = "gemini-1.5-pro-exp-0801"
 # custom_llm_service_obj = custom_llm_service()
 # response = custom_llm_service_obj.completion(
-#     messages=[{"role": "user","content": "What is the meaning of life?"}],
+#     messages=[{"role": "user","content": "10 + 10 ="}],
 #     model=model,
 #     max_tokens=100,
 #     temperature=0,
@@ -311,6 +412,7 @@ async def runner(func, messages:list, batch_size=1, validation_func=lambda x: Tr
                     del messages_copy[_idx]
                 else:
                     print(f"Validation failed on response {_idx}. Retry #{_retry}")
+                    print(f'Invalid Response: {response}')
 
             if len(messages_copy) == 0:
                 break

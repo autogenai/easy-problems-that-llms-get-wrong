@@ -88,13 +88,13 @@ Make changes to the #Variables notebook cell, which includes:
 - Method of answer evaluation
 - Whether to include reflection
 - The various save paths
-- The exectution steps to conduct (perhaps you only want to get answers, for example)
+- The execution steps to conduct (perhaps you only want to get answers, for example)
 
 Ultimately, this will process the benchmark questions, query the LLMs, analyse the responses, and output the statistical summary and graph.
 
 ### Most Accurate Results
 
-The multiple-choice questions are the most determinitistic and the more reliable to evaluate, as there is a clear set answer to measure against; however, open-ended questions can often expose illogical and inconsistent behavior more reliably, but are difficult to evalutate.
+The multiple-choice questions are the most deterministic and the more reliable to evaluate, as there is a clear set answer to measure against; however, open-ended questions can often expose illogical and inconsistent behavior more reliably, but are difficult to evaluate.
 
 For open-ended questions (non multiple choice) it is best for a person to mark the LLM responses so as not to rely on the scores auto-generated in the `auto_eval_outputs` folder (by default marked by GPT-4o). You can edit the scores in the  `auto_eval_outputs` json files directly and then re-run the "generate_statistics" execution step in the  `main.ipynb` notebook to get the final results. This is how the authors did it for the paper, resulting in much lower scores than the less reliable LLM based auto evaluation.
 
@@ -112,7 +112,7 @@ There are vast limitations to this approach, but further improvements might incl
 * [X] Building in "Hotz Reflection" to allow the model to reflect and potentially change its answer.
 * [ ] Expanding the Linguistic Benchmark beyond thirty questions to increase statistical significance and test a more diverse range of inputs.
 * [ ] Testing on a sample of smaller LLMs to see if performance is correlated to model size.
-* [ ] Fine-tuning models with a training dataset of perturbed variations of well-known logictype problems found in the training corpora (on the internet) to see if this decreases
+* [ ] Fine-tuning models with a training dataset of perturbed variations of well-known logic ype problems found in the training corpora (on the internet) to see if this decreases
   overfitting variance.
 * [ ] Testing advanced regularisation techniques for LLMs during the pre-training process.
 * [ ] Finding better methodologies to keep LLM outputs deterministic.

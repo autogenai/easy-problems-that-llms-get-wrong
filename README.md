@@ -51,7 +51,7 @@ This tool facilitates benchmarking and statistical analysis of various Language 
 First, clone this repository to your local machine:
 
 ```shell
-git clone https://yourrepositoryurl.git
+git clone https://github.com/autogenai/easy-problems-that-llms-get-wrong
 cd language-model-benchmark-tool
 ```
 

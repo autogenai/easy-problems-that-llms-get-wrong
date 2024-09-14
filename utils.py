@@ -43,8 +43,12 @@ async def get_llm_answers(
     all_llm_answers = {}
     for model, llm_service in models:
         print(f"Running  Benchmark for {model}")
-        messages = [[{"role": "user", "content": q[question_str]}] 
-                    for q in benchmark_questions[model_clean(model)]]
+        #This ensures that you handle cases where the model is not found in benchmark_questions.
+        if model_clean(model) in benchmark_questions:
+            messages = [[{"role": "user", "content": q[question_str]}] for q in benchmark_questions[model_clean(model)]]
+        else:
+            raise ValueError(f"Model {model_clean(model)} not found in benchmark_questions.")
+
         llm_service_func = litellm_service() if llm_service == 'litellm' else custom_llm_service()
         answers = await runner(
             llm_service_func.completion,

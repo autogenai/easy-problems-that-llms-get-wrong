@@ -28,7 +28,7 @@ STUDENT RESPONSE
 {model_response} 
 
 TASK
-Does the STUDENT RESPONSE cointain the PERFECT RESPONSE only! Use the SCORING CRITERIA. Provide a full explanation and finally return a JSON object with the score as a percentage. Example:
+Does the STUDENT RESPONSE contains the PERFECT RESPONSE only! Use the SCORING CRITERIA. Provide a full explanation and finally return a JSON object with the score as a percentage. Example:
 {{"score": 20}}
 """
 #%%

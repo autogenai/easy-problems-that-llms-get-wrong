@@ -55,15 +55,23 @@ def anthropic_message_parse(response:dict):
         messages = messages[0]
     return messages
 
-def google_message_parse(response:dict|list):
+def google_message_parse(response: dict | list):
     try:
         if isinstance(response, dict):
-            text_response = response['candidates'][0]['content']['parts'][0]['text']
+            # Check if 'candidates' and 'content' keys are present
+            if 'candidates' in response and 'content' in response['candidates'][0]:
+                text_response = response['candidates'][0]['content']['parts'][0]['text']
+            else:
+                return "None"
         else:
-            text_response = ''.join([line['candidates'][0]['content']['parts'][0]['text'] 
-                                    for line in response 
-                                    if 'candidates' in line and 'content' in line['candidates'][0]])
+            text_response = ''.join([
+                line['candidates'][0]['content']['parts'][0]['text']
+                for line in response
+                if 'candidates' in line and 'content' in line['candidates'][0]
+            ])
         return text_response
+    except KeyError as e:
+        raise ValueError(f"KeyError in response. Missing key: {e}. Response: {response}")
     except Exception as e:
         if response in [{}, []]:
             return "None"

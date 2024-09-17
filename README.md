@@ -51,7 +51,7 @@ This tool facilitates benchmarking and statistical analysis of various Language 
 First, clone this repository to your local machine:
 
 ```shell
-git clone https://yourrepositoryurl.git
+git clone https://github.com/autogenai/easy-problems-that-llms-get-wrong
 cd language-model-benchmark-tool
 ```
 
@@ -112,7 +112,7 @@ There are vast limitations to this approach, but further improvements might incl
 * [X] Building in "Hotz Reflection" to allow the model to reflect and potentially change its answer.
 * [ ] Expanding the Linguistic Benchmark beyond thirty questions to increase statistical significance and test a more diverse range of inputs.
 * [ ] Testing on a sample of smaller LLMs to see if performance is correlated to model size.
-* [ ] Fine-tuning models with a training dataset of perturbed variations of well-known logic ype problems found in the training corpora (on the internet) to see if this decreases
+* [ ] Fine-tuning models with a training dataset of perturbed variations of well-known logic type problems found in the training corpora (on the internet) to see if this decreases
   overfitting variance.
 * [ ] Testing advanced regularisation techniques for LLMs during the pre-training process.
 * [ ] Finding better methodologies to keep LLM outputs deterministic.

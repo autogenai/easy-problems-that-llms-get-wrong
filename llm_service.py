@@ -98,7 +98,7 @@ def message_parse(response: dict, model: str):
     elif "claude" in model:
         messages = anthropic_message_parse(response)
     else:
-        print(f"!!!!!! Could not determing model in `message_parse`: '{model}'")
+        print(f"!!!!!! Could not determine model in `message_parse`: '{model}'")
         messages = ""
     return messages
 

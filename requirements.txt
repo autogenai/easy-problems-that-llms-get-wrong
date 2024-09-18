@@ -6,4 +6,4 @@ numpy
 seaborn
 matplotlib
 streamlit
-boto3 
+boto3

@@ -2,7 +2,7 @@
 
 # Code for "Easy Problem That LLMs Get Wrong" Paper
 
-ArXiv Paper: [https://arxiv.org/abs/2405.19616]()
+ArXiv Paper: [https://arxiv.org/abs/2405.19616](https://arxiv.org/abs/2405.19616)
 
 ### Benchmark Results
 
